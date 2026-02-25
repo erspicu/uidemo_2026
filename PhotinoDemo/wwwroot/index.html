@@ -200,12 +200,12 @@
     }
 
     // Photino JS Bridge
-    window.external.receiveMessage = msg => {
+    window.external.receiveMessage(msg => {
       const d = JSON.parse(msg);
       if (d.cmd === 'systemInfo') fillSystemInfo(d);
       else if (d.cmd === 'tableData') fillTable(d.rows);
       else if (d.cmd === 'pong') document.getElementById('btn-out').textContent = `[C# @ ${d.time}] Pong: "${d.value}"`;
-    };
+    });
 
     function loadSystemInfo() {
       window.external.sendMessage(JSON.stringify({cmd:'getSystemInfo'}));

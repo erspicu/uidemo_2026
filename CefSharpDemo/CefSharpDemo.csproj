@@ -9,10 +9,13 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="CefSharp.Wpf.HwndHost" Version="120.1.110" />
+    <PackageReference Include="cef.redist.x64" Version="120.1.10" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="wwwroot\**\*">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
+  <!-- Copy native CEF binaries (libcef.dll etc.) from cef.redist.x64 package -->
+  <Target Name="CopyCefNativeBinaries" AfterTargets="Build" DependsOnTargets="CefRedist64CopyResources" />
 </Project>
