@@ -1,12 +1,14 @@
 using System.IO;
 using System.Windows;
 using CefSharp;
-using CefSharp.Wpf;
+using CefSharp.Wpf.HwndHost;
 
 namespace CefSharpDemo;
 
 public partial class MainWindow : Window
 {
+    private ChromiumWebBrowser? _browser;
+
     public MainWindow()
     {
         var settings = new CefSettings();
@@ -17,9 +19,11 @@ public partial class MainWindow : Window
 
     private void Window_Loaded(object sender, RoutedEventArgs e)
     {
-        browser.JavascriptObjectRepository.Register("csharpBridge", new BridgeApi(), isAsync: false);
+        _browser = new ChromiumWebBrowser();
+        _browser.JavascriptObjectRepository.Register("csharpBridge", new BridgeApi());
         var path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "wwwroot", "index.html");
-        browser.Address = new Uri(path).AbsoluteUri;
+        _browser.Address = new Uri(path).AbsoluteUri;
+        RootGrid.Children.Add(_browser);
     }
 
     protected override void OnClosed(EventArgs e)
