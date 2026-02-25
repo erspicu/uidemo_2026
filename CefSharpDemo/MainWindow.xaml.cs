@@ -12,6 +12,9 @@ public partial class MainWindow : Window
     public MainWindow()
     {
         var settings = new CefSettings();
+        settings.BrowserSubprocessPath = Path.Combine(
+            AppDomain.CurrentDomain.BaseDirectory,
+            "runtimes", "win-x64", "native", "CefSharp.BrowserSubprocess.exe");
         if (!Cef.IsInitialized)
             Cef.Initialize(settings);
         InitializeComponent();
