@@ -1,0 +1,323 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:AvaloniaDemo.ViewModels"
+             x:Class="AvaloniaDemo.Views.AnimationDemoView"
+             x:DataType="vm:AnimationDemoViewModel">
+
+    <UserControl.Styles>
+
+        <Style Selector="Border.anim-card">
+            <Setter Property="CornerRadius" Value="12"/>
+            <Setter Property="Background"   Value="#1E293B"/>
+            <Setter Property="Padding"      Value="24"/>
+        </Style>
+        <Style Selector="TextBlock.card-title">
+            <Setter Property="FontSize"   Value="13"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Foreground" Value="#94A3B8"/>
+            <Setter Property="Margin"     Value="0,0,0,16"/>
+        </Style>
+
+        <!-- Staggered opacity pulses for dots -->
+        <Style Selector="Ellipse.dot1">
+            <Style.Animations>
+                <Animation Duration="0:0:0.9" IterationCount="INFINITE"
+                           PlaybackDirection="Alternate" Easing="SineEaseInOut"
+                           Delay="0:0:0">
+                    <KeyFrame Cue="0%">
+                        <Setter Property="Opacity" Value="1.0"/>
+                    </KeyFrame>
+                    <KeyFrame Cue="100%">
+                        <Setter Property="Opacity" Value="0.15"/>
+                    </KeyFrame>
+                </Animation>
+            </Style.Animations>
+        </Style>
+        <Style Selector="Ellipse.dot2">
+            <Style.Animations>
+                <Animation Duration="0:0:0.9" IterationCount="INFINITE"
+                           PlaybackDirection="Alternate" Easing="SineEaseInOut"
+                           Delay="0:0:0.3">
+                    <KeyFrame Cue="0%">
+                        <Setter Property="Opacity" Value="1.0"/>
+                    </KeyFrame>
+                    <KeyFrame Cue="100%">
+                        <Setter Property="Opacity" Value="0.15"/>
+                    </KeyFrame>
+                </Animation>
+            </Style.Animations>
+        </Style>
+        <Style Selector="Ellipse.dot3">
+            <Style.Animations>
+                <Animation Duration="0:0:0.9" IterationCount="INFINITE"
+                           PlaybackDirection="Alternate" Easing="SineEaseInOut"
+                           Delay="0:0:0.6">
+                    <KeyFrame Cue="0%">
+                        <Setter Property="Opacity" Value="1.0"/>
+                    </KeyFrame>
+                    <KeyFrame Cue="100%">
+                        <Setter Property="Opacity" Value="0.15"/>
+                    </KeyFrame>
+                </Animation>
+            </Style.Animations>
+        </Style>
+
+        <!-- Pulsing glow circle -->
+        <Style Selector="Ellipse.pulse-circle">
+            <Style.Animations>
+                <Animation Duration="0:0:1.5" IterationCount="INFINITE"
+                           PlaybackDirection="Alternate" Easing="SineEaseInOut">
+                    <KeyFrame Cue="0%">
+                        <Setter Property="Opacity" Value="1.0"/>
+                    </KeyFrame>
+                    <KeyFrame Cue="100%">
+                        <Setter Property="Opacity" Value="0.2"/>
+                    </KeyFrame>
+                </Animation>
+            </Style.Animations>
+        </Style>
+        <Style Selector="Ellipse.pulse-ring">
+            <Style.Animations>
+                <Animation Duration="0:0:1.5" IterationCount="INFINITE"
+                           PlaybackDirection="Alternate" Easing="SineEaseInOut"
+                           Delay="0:0:0.75">
+                    <KeyFrame Cue="0%">
+                        <Setter Property="Opacity" Value="0.6"/>
+                    </KeyFrame>
+                    <KeyFrame Cue="100%">
+                        <Setter Property="Opacity" Value="0.0"/>
+                    </KeyFrame>
+                </Animation>
+            </Style.Animations>
+        </Style>
+
+        <!-- Color bar wave animations -->
+        <Style Selector="Border.wave1">
+            <Style.Animations>
+                <Animation Duration="0:0:0.7" IterationCount="INFINITE"
+                           PlaybackDirection="Alternate" Easing="SineEaseInOut"
+                           Delay="0:0:0.0">
+                    <KeyFrame Cue="0%"><Setter Property="Opacity" Value="1.0"/></KeyFrame>
+                    <KeyFrame Cue="100%"><Setter Property="Opacity" Value="0.2"/></KeyFrame>
+                </Animation>
+            </Style.Animations>
+        </Style>
+        <Style Selector="Border.wave2">
+            <Style.Animations>
+                <Animation Duration="0:0:0.7" IterationCount="INFINITE"
+                           PlaybackDirection="Alternate" Easing="SineEaseInOut"
+                           Delay="0:0:0.1">
+                    <KeyFrame Cue="0%"><Setter Property="Opacity" Value="1.0"/></KeyFrame>
+                    <KeyFrame Cue="100%"><Setter Property="Opacity" Value="0.2"/></KeyFrame>
+                </Animation>
+            </Style.Animations>
+        </Style>
+        <Style Selector="Border.wave3">
+            <Style.Animations>
+                <Animation Duration="0:0:0.7" IterationCount="INFINITE"
+                           PlaybackDirection="Alternate" Easing="SineEaseInOut"
+                           Delay="0:0:0.2">
+                    <KeyFrame Cue="0%"><Setter Property="Opacity" Value="1.0"/></KeyFrame>
+                    <KeyFrame Cue="100%"><Setter Property="Opacity" Value="0.2"/></KeyFrame>
+                </Animation>
+            </Style.Animations>
+        </Style>
+        <Style Selector="Border.wave4">
+            <Style.Animations>
+                <Animation Duration="0:0:0.7" IterationCount="INFINITE"
+                           PlaybackDirection="Alternate" Easing="SineEaseInOut"
+                           Delay="0:0:0.3">
+                    <KeyFrame Cue="0%"><Setter Property="Opacity" Value="1.0"/></KeyFrame>
+                    <KeyFrame Cue="100%"><Setter Property="Opacity" Value="0.2"/></KeyFrame>
+                </Animation>
+            </Style.Animations>
+        </Style>
+        <Style Selector="Border.wave5">
+            <Style.Animations>
+                <Animation Duration="0:0:0.7" IterationCount="INFINITE"
+                           PlaybackDirection="Alternate" Easing="SineEaseInOut"
+                           Delay="0:0:0.4">
+                    <KeyFrame Cue="0%"><Setter Property="Opacity" Value="1.0"/></KeyFrame>
+                    <KeyFrame Cue="100%"><Setter Property="Opacity" Value="0.2"/></KeyFrame>
+                </Animation>
+            </Style.Animations>
+        </Style>
+        <Style Selector="Border.wave6">
+            <Style.Animations>
+                <Animation Duration="0:0:0.7" IterationCount="INFINITE"
+                           PlaybackDirection="Alternate" Easing="SineEaseInOut"
+                           Delay="0:0:0.5">
+                    <KeyFrame Cue="0%"><Setter Property="Opacity" Value="1.0"/></KeyFrame>
+                    <KeyFrame Cue="100%"><Setter Property="Opacity" Value="0.2"/></KeyFrame>
+                </Animation>
+            </Style.Animations>
+        </Style>
+        <Style Selector="Border.wave7">
+            <Style.Animations>
+                <Animation Duration="0:0:0.7" IterationCount="INFINITE"
+                           PlaybackDirection="Alternate" Easing="SineEaseInOut"
+                           Delay="0:0:0.6">
+                    <KeyFrame Cue="0%"><Setter Property="Opacity" Value="1.0"/></KeyFrame>
+                    <KeyFrame Cue="100%"><Setter Property="Opacity" Value="0.2"/></KeyFrame>
+                </Animation>
+            </Style.Animations>
+        </Style>
+
+        <!-- Action buttons -->
+        <Style Selector="Button.run-btn">
+            <Setter Property="Background"   Value="#7C3AED"/>
+            <Setter Property="Foreground"   Value="White"/>
+            <Setter Property="Padding"      Value="16,8"/>
+            <Setter Property="CornerRadius" Value="8"/>
+        </Style>
+        <Style Selector="Button.stop-btn">
+            <Setter Property="Background"   Value="#DC2626"/>
+            <Setter Property="Foreground"   Value="White"/>
+            <Setter Property="Padding"      Value="16,8"/>
+            <Setter Property="CornerRadius" Value="8"/>
+        </Style>
+        <Style Selector="Button.reset-btn">
+            <Setter Property="Background"   Value="#334155"/>
+            <Setter Property="Foreground"   Value="#CBD5E1"/>
+            <Setter Property="Padding"      Value="16,8"/>
+            <Setter Property="CornerRadius" Value="8"/>
+        </Style>
+
+    </UserControl.Styles>
+
+    <ScrollViewer>
+        <StackPanel Margin="32,28" Spacing="20">
+
+            <!-- Page Header -->
+            <StackPanel Spacing="4" Margin="0,0,0,8">
+                <TextBlock Text="Animation" FontSize="28" FontWeight="Bold" Foreground="#F1F5F9"/>
+                <TextBlock Text="CSS-style keyframe animations using Avalonia's animation engine"
+                           FontSize="14" Foreground="#64748B"/>
+            </StackPanel>
+
+            <!-- ── Row 1: 3 loader cards ── -->
+            <Grid ColumnDefinitions="*,*,*">
+
+                <!-- Bouncing Dots -->
+                <Border Grid.Column="0" Classes="anim-card" Margin="0,0,10,0">
+                    <StackPanel Spacing="20">
+                        <TextBlock Classes="card-title" Text="PULSING DOTS"/>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Spacing="10">
+                            <Ellipse Classes="dot1" Width="18" Height="18" Fill="#A78BFA"/>
+                            <Ellipse Classes="dot2" Width="18" Height="18" Fill="#818CF8"/>
+                            <Ellipse Classes="dot3" Width="18" Height="18" Fill="#60A5FA"/>
+                        </StackPanel>
+                        <TextBlock Text="Staggered opacity animation" FontSize="11"
+                                   Foreground="#475569" HorizontalAlignment="Center"/>
+                    </StackPanel>
+                </Border>
+
+                <!-- Pulse Ring -->
+                <Border Grid.Column="1" Classes="anim-card" Margin="5,0,5,0">
+                    <StackPanel Spacing="20">
+                        <TextBlock Classes="card-title" Text="PULSE RING"/>
+                        <Grid Width="80" Height="80" HorizontalAlignment="Center">
+                            <Ellipse Classes="pulse-ring"
+                                     Width="80" Height="80"
+                                     Fill="#7C3AED" Opacity="0.4"/>
+                            <Ellipse Classes="pulse-circle"
+                                     Width="52" Height="52"
+                                     Fill="#A78BFA"/>
+                            <TextBlock Text="●" FontSize="10" Foreground="White"
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center"/>
+                        </Grid>
+                        <TextBlock Text="Alternating opacity fade" FontSize="11"
+                                   Foreground="#475569" HorizontalAlignment="Center"/>
+                    </StackPanel>
+                </Border>
+
+                <!-- Indeterminate Bar -->
+                <Border Grid.Column="2" Classes="anim-card" Margin="10,0,0,0">
+                    <StackPanel Spacing="20">
+                        <TextBlock Classes="card-title" Text="INDETERMINATE BAR"/>
+                        <StackPanel Spacing="10" VerticalAlignment="Center">
+                            <ProgressBar IsIndeterminate="True" Height="8" CornerRadius="4"/>
+                            <ProgressBar IsIndeterminate="True" Height="4" CornerRadius="2"
+                                         Margin="20,0"/>
+                            <ProgressBar IsIndeterminate="True" Height="8" CornerRadius="4"
+                                         Margin="40,0"/>
+                        </StackPanel>
+                        <TextBlock Text="Built-in indeterminate mode" FontSize="11"
+                                   Foreground="#475569" HorizontalAlignment="Center"/>
+                    </StackPanel>
+                </Border>
+
+            </Grid>
+
+            <!-- ── Row 2: Progress Demo + Wave Equalizer ── -->
+            <Grid ColumnDefinitions="*,Auto">
+
+                <!-- Animated Progress -->
+                <Border Grid.Column="0" Classes="anim-card" Margin="0,0,10,0">
+                    <StackPanel Spacing="14">
+                        <TextBlock Classes="card-title" Text="PROGRESS ANIMATION"/>
+
+                        <!-- Big counter -->
+                        <Border CornerRadius="12" Background="#0F172A"
+                                Padding="0,20" Margin="0,0,0,4">
+                            <StackPanel HorizontalAlignment="Center" Spacing="4">
+                                <TextBlock Text="{Binding CounterValue, StringFormat='{}{0}%'}"
+                                           FontSize="48" FontWeight="Bold"
+                                           Foreground="#A78BFA"
+                                           HorizontalAlignment="Center"/>
+                                <TextBlock Text="complete" FontSize="12" Foreground="#475569"
+                                           HorizontalAlignment="Center"/>
+                            </StackPanel>
+                        </Border>
+
+                        <ProgressBar Value="{Binding ProgressValue}" Minimum="0" Maximum="100"
+                                     Height="12" CornerRadius="6"/>
+
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <Button Classes="run-btn"   Content="▶ Run"
+                                    Command="{Binding RunProgressCommand}"
+                                    IsEnabled="{Binding !IsRunning}"/>
+                            <Button Classes="stop-btn"  Content="⏹ Stop"
+                                    Command="{Binding StopProgressCommand}"
+                                    IsEnabled="{Binding IsRunning}"/>
+                            <Button Classes="reset-btn" Content="↺ Reset"
+                                    Command="{Binding ResetProgressCommand}"/>
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
+
+                <!-- Wave / Equalizer bars -->
+                <Border Grid.Column="1" Classes="anim-card" Width="220" Margin="10,0,0,0">
+                    <StackPanel Spacing="16">
+                        <TextBlock Classes="card-title" Text="WAVE EQUALIZER"/>
+
+                        <StackPanel Orientation="Horizontal" Spacing="6"
+                                    HorizontalAlignment="Center" VerticalAlignment="Center"
+                                    Height="80">
+                            <Border Classes="wave1" Width="16" CornerRadius="4"
+                                    Background="#A78BFA" Height="40" VerticalAlignment="Bottom"/>
+                            <Border Classes="wave2" Width="16" CornerRadius="4"
+                                    Background="#818CF8" Height="65" VerticalAlignment="Bottom"/>
+                            <Border Classes="wave3" Width="16" CornerRadius="4"
+                                    Background="#60A5FA" Height="30" VerticalAlignment="Bottom"/>
+                            <Border Classes="wave4" Width="16" CornerRadius="4"
+                                    Background="#34D399" Height="75" VerticalAlignment="Bottom"/>
+                            <Border Classes="wave5" Width="16" CornerRadius="4"
+                                    Background="#FBBF24" Height="50" VerticalAlignment="Bottom"/>
+                            <Border Classes="wave6" Width="16" CornerRadius="4"
+                                    Background="#F87171" Height="60" VerticalAlignment="Bottom"/>
+                            <Border Classes="wave7" Width="16" CornerRadius="4"
+                                    Background="#E879F9" Height="35" VerticalAlignment="Bottom"/>
+                        </StackPanel>
+
+                        <TextBlock Text="Staggered height pulse" FontSize="11"
+                                   Foreground="#475569" HorizontalAlignment="Center"/>
+                    </StackPanel>
+                </Border>
+
+            </Grid>
+
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

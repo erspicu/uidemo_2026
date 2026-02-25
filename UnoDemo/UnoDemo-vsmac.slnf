@@ -1,0 +1,13 @@
+{
+  "solution": {
+    "path": "UnoDemo.sln",
+    "projects": [
+		"UnoDemo\\UnoDemo.csproj",
+
+
+
+
+		"UnoDemo.Skia.Gtk\\UnoDemo.Skia.Gtk.csproj",
+    ]
+  }
+}

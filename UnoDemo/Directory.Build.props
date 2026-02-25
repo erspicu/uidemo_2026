@@ -1,0 +1,6 @@
+<Project>
+  <!-- Redirect AppxPackage MSBuild tools to VS 2019 installation (v16.0 has the required DLLs) -->
+  <PropertyGroup>
+    <AppxMSBuildToolsPath>C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\MSBuild\Microsoft\VisualStudio\v16.0\AppxPackage\</AppxMSBuildToolsPath>
+  </PropertyGroup>
+</Project>

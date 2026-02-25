@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="MauiDemo.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:pages="clr-namespace:MauiDemo.Pages"
+    Title="✨ MAUI Demo"
+    FlyoutBehavior="Flyout"
+    FlyoutWidth="220"
+    FlyoutBackgroundColor="#111827">
+
+    <Shell.FlyoutHeader>
+        <VerticalStackLayout Padding="20,22,20,18" Spacing="4"
+                             BackgroundColor="#111827">
+            <Label Text="✨ MAUI Demo"
+                   FontSize="17" FontAttributes="Bold"
+                   TextColor="#A78BFA"/>
+            <Label Text=".NET 10  ·  MAUI"
+                   FontSize="11" TextColor="#6B7280"/>
+        </VerticalStackLayout>
+    </Shell.FlyoutHeader>
+
+    <Shell.ItemTemplate>
+        <DataTemplate>
+            <Grid ColumnDefinitions="44,*" BackgroundColor="Transparent"
+                  Padding="12,10">
+                <Label Grid.Column="0" Text="{Binding Icon}"
+                       FontSize="20" HorizontalOptions="Center"
+                       VerticalOptions="Center"/>
+                <Label Grid.Column="1" Text="{Binding Title}"
+                       FontSize="14" FontAttributes="Bold"
+                       TextColor="#D1D5DB" VerticalOptions="Center"/>
+            </Grid>
+        </DataTemplate>
+    </Shell.ItemTemplate>
+
+    <FlyoutItem Title="Dashboard" Icon="🏠" Route="dashboard">
+        <ShellContent ContentTemplate="{DataTemplate pages:DashboardPage}"/>
+    </FlyoutItem>
+
+    <FlyoutItem Title="Controls" Icon="🎛️" Route="controls">
+        <ShellContent ContentTemplate="{DataTemplate pages:ControlsPage}"/>
+    </FlyoutItem>
+
+    <FlyoutItem Title="Animation" Icon="✨" Route="animation">
+        <ShellContent ContentTemplate="{DataTemplate pages:AnimationPage}"/>
+    </FlyoutItem>
+
+    <FlyoutItem Title="Data Grid" Icon="📊" Route="datagrid">
+        <ShellContent ContentTemplate="{DataTemplate pages:DataPage}"/>
+    </FlyoutItem>
+
+</Shell>

@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:models="clr-namespace:MauiDemo.Models"
+             x:Class="MauiDemo.Pages.DataPage"
+             BackgroundColor="#0F172A"
+             Title="Data Grid">
+
+    <Grid RowDefinitions="Auto,Auto,*,Auto" Margin="32,28">
+
+        <!-- Header -->
+        <VerticalStackLayout Grid.Row="0" Spacing="4" Margin="0,0,0,16">
+            <Label Text="Data Grid" FontSize="28" FontAttributes="Bold" TextColor="#F1F5F9"/>
+            <Label Text="Searchable data table with live filtering"
+                   FontSize="14" TextColor="#64748B"/>
+        </VerticalStackLayout>
+
+        <!-- Search -->
+        <Border Grid.Row="1" BackgroundColor="#1E293B" StrokeShape="RoundRectangle 12"
+                Padding="14,10" Margin="0,0,0,12">
+            <Grid ColumnDefinitions="Auto,*">
+                <Label Grid.Column="0" Text="🔍" FontSize="16"
+                       VerticalOptions="Center" Margin="0,0,10,0"/>
+                <Entry Grid.Column="1"
+                       Text="{Binding SearchText}"
+                       Placeholder="Search by name, department or status…"
+                       PlaceholderColor="#475569"
+                       BackgroundColor="Transparent"
+                       TextColor="#F1F5F9"
+                       VerticalOptions="Center"/>
+            </Grid>
+        </Border>
+
+        <!-- Data Table (CollectionView with header) -->
+        <Border Grid.Row="2" BackgroundColor="#1E293B" StrokeShape="RoundRectangle 12" Padding="0">
+            <Grid RowDefinitions="Auto,*">
+
+                <!-- Column Headers -->
+                <Border Grid.Row="0" BackgroundColor="#0F172A"
+                        StrokeShape="RoundRectangle 0" Padding="16,12">
+                    <Grid ColumnDefinitions="*,60,140,110,80">
+                        <Label Grid.Column="0" Text="NAME"       FontSize="11" FontAttributes="Bold" TextColor="#64748B"/>
+                        <Label Grid.Column="1" Text="AGE"        FontSize="11" FontAttributes="Bold" TextColor="#64748B"/>
+                        <Label Grid.Column="2" Text="DEPARTMENT" FontSize="11" FontAttributes="Bold" TextColor="#64748B"/>
+                        <Label Grid.Column="3" Text="STATUS"     FontSize="11" FontAttributes="Bold" TextColor="#64748B"/>
+                        <Label Grid.Column="4" Text="SCORE"      FontSize="11" FontAttributes="Bold" TextColor="#64748B"/>
+                    </Grid>
+                </Border>
+
+                <!-- Rows -->
+                <CollectionView Grid.Row="1"
+                                ItemsSource="{Binding FilteredPeople}"
+                                SelectedItem="{Binding SelectedPerson}"
+                                SelectionMode="Single">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="models:PersonModel">
+                            <Border Padding="16,12" BackgroundColor="Transparent"
+                                    StrokeShape="RoundRectangle 0" StrokeThickness="0">
+                                <Grid ColumnDefinitions="*,60,140,110,80">
+                                    <Label Grid.Column="0" Text="{Binding Name}"
+                                           FontSize="13" TextColor="#F1F5F9"
+                                           VerticalOptions="Center"/>
+                                    <Label Grid.Column="1" Text="{Binding Age}"
+                                           FontSize="13" TextColor="#CBD5E1"
+                                           VerticalOptions="Center"/>
+                                    <Label Grid.Column="2" Text="{Binding Department}"
+                                           FontSize="13" TextColor="#CBD5E1"
+                                           VerticalOptions="Center"/>
+                                    <Border Grid.Column="3"
+                                            BackgroundColor="#334155"
+                                            StrokeShape="RoundRectangle 20"
+                                            Padding="10,3" Margin="0,4"
+                                            VerticalOptions="Center" HorizontalOptions="Start">
+                                        <Label Text="{Binding Status}"
+                                               FontSize="12" TextColor="#CBD5E1"/>
+                                    </Border>
+                                    <Label Grid.Column="4"
+                                           FontSize="13" TextColor="#34D399"
+                                           FontAttributes="Bold" VerticalOptions="Center">
+                                        <Label.Text>
+                                            <Binding Path="Score" StringFormat="{}{0:F1}"/>
+                                        </Label.Text>
+                                    </Label>
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+
+            </Grid>
+        </Border>
+
+        <!-- Selected detail bar -->
+        <Border Grid.Row="3" BackgroundColor="#1E293B" StrokeShape="RoundRectangle 12"
+                Padding="16,12" Margin="0,12,0,0">
+            <HorizontalStackLayout Spacing="24">
+                <HorizontalStackLayout Spacing="6">
+                    <Label Text="Selected:" FontSize="13" TextColor="#64748B" VerticalOptions="Center"/>
+                    <Label Text="{Binding SelectedPerson.Name, FallbackValue='—'}"
+                           FontSize="13" FontAttributes="Bold" TextColor="#A78BFA"
+                           VerticalOptions="Center"/>
+                </HorizontalStackLayout>
+                <HorizontalStackLayout Spacing="6">
+                    <Label Text="Dept:" FontSize="13" TextColor="#64748B" VerticalOptions="Center"/>
+                    <Label Text="{Binding SelectedPerson.Department, FallbackValue='—'}"
+                           FontSize="13" TextColor="#CBD5E1" VerticalOptions="Center"/>
+                </HorizontalStackLayout>
+                <HorizontalStackLayout Spacing="6">
+                    <Label Text="Score:" FontSize="13" TextColor="#64748B" VerticalOptions="Center"/>
+                    <Label FontSize="13" TextColor="#34D399" FontAttributes="Bold"
+                           VerticalOptions="Center">
+                        <Label.Text>
+                            <Binding Path="SelectedPerson.Score" StringFormat="{}{0:F1}" FallbackValue="—"/>
+                        </Label.Text>
+                    </Label>
+                </HorizontalStackLayout>
+            </HorizontalStackLayout>
+        </Border>
+
+    </Grid>
+</ContentPage>

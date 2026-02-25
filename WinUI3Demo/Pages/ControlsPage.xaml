@@ -1,0 +1,111 @@
+<Page
+    x:Class="WinUI3Demo.Pages.ControlsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Background="Transparent">
+
+    <ScrollViewer>
+        <StackPanel Spacing="24" Padding="32,24">
+
+            <!-- Header -->
+            <StackPanel>
+                <TextBlock Text="Controls" FontSize="28" FontWeight="Bold"/>
+                <TextBlock Text="WinUI 3 native control showcase" Foreground="#9CA3AF" Margin="0,4,0,0"/>
+            </StackPanel>
+
+            <!-- Toggles & Checkboxes -->
+            <Border Background="#1F2937" CornerRadius="12" Padding="20">
+                <StackPanel Spacing="16">
+                    <TextBlock Text="Toggles &amp; Checkboxes" FontSize="16" FontWeight="SemiBold"/>
+                    <StackPanel Orientation="Horizontal" Spacing="40">
+                        <StackPanel Spacing="8">
+                            <ToggleSwitch Header="Enable Notifications" IsOn="{x:Bind ViewModel.ToggleA, Mode=TwoWay}" OffContent="Off" OnContent="On"/>
+                            <ToggleSwitch Header="Dark Mode" IsOn="{x:Bind ViewModel.ToggleB, Mode=TwoWay}" OffContent="Off" OnContent="On"/>
+                        </StackPanel>
+                        <StackPanel Spacing="8">
+                            <CheckBox Content="Option Alpha" IsChecked="True"/>
+                            <CheckBox Content="Option Beta"/>
+                            <CheckBox Content="Option Gamma" IsChecked="True"/>
+                        </StackPanel>
+                        <StackPanel Spacing="8">
+                            <RadioButton Content="Choice One" IsChecked="True" GroupName="demo"/>
+                            <RadioButton Content="Choice Two" GroupName="demo"/>
+                            <RadioButton Content="Choice Three" GroupName="demo"/>
+                        </StackPanel>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+
+            <!-- Slider & Progress -->
+            <Border Background="#1F2937" CornerRadius="12" Padding="20">
+                <StackPanel Spacing="16">
+                    <TextBlock Text="Slider &amp; Progress" FontSize="16" FontWeight="SemiBold"/>
+                    <TextBlock Text="{x:Bind ViewModel.SliderLabel, Mode=OneWay}" Foreground="#9CA3AF" FontSize="13"/>
+                    <Slider Value="{x:Bind ViewModel.SliderValue, Mode=TwoWay}" Minimum="0" Maximum="100" Width="400" HorizontalAlignment="Left"/>
+                    <ProgressBar Value="{x:Bind ViewModel.SliderValue, Mode=OneWay}" Maximum="100" Height="8" Width="400" HorizontalAlignment="Left"/>
+                    <ProgressBar IsIndeterminate="True" Width="400" Height="8" HorizontalAlignment="Left"/>
+                    <ProgressRing IsActive="True" Width="36" Height="36" HorizontalAlignment="Left"/>
+                </StackPanel>
+            </Border>
+
+            <!-- Input Controls -->
+            <Border Background="#1F2937" CornerRadius="12" Padding="20">
+                <StackPanel Spacing="12">
+                    <TextBlock Text="Input Controls" FontSize="16" FontWeight="SemiBold"/>
+                    <StackPanel Orientation="Horizontal" Spacing="12">
+                        <TextBox PlaceholderText="Enter text here..." Width="200" Header="Name"/>
+                        <PasswordBox PlaceholderText="Password" Width="160" Header="Password"/>
+                        <NumberBox PlaceholderText="0" Header="Number" Minimum="0" Maximum="999" Width="120"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Spacing="12">
+                        <ComboBox Header="Color" SelectedIndex="{x:Bind ViewModel.SelectedColorIndex, Mode=TwoWay}" Width="160">
+                            <ComboBoxItem Content="Red"/>
+                            <ComboBoxItem Content="Blue"/>
+                            <ComboBoxItem Content="Green"/>
+                            <ComboBoxItem Content="Purple"/>
+                            <ComboBoxItem Content="Orange"/>
+                        </ComboBox>
+                        <DatePicker Header="Pick a Date"/>
+                        <TimePicker Header="Pick a Time"/>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+
+            <!-- Buttons -->
+            <Border Background="#1F2937" CornerRadius="12" Padding="20">
+                <StackPanel Spacing="12">
+                    <TextBlock Text="Buttons &amp; Actions" FontSize="16" FontWeight="SemiBold"/>
+                    <StackPanel Orientation="Horizontal" Spacing="12">
+                        <Button Content="Primary" Style="{StaticResource AccentButtonStyle}"/>
+                        <Button Content="Default"/>
+                        <Button>
+                            <StackPanel Orientation="Horizontal" Spacing="8">
+                                <FontIcon Glyph="&#xE72D;" FontSize="14"/>
+                                <TextBlock Text="Download"/>
+                            </StackPanel>
+                        </Button>
+                        <DropDownButton Content="Options">
+                            <DropDownButton.Flyout>
+                                <MenuFlyout>
+                                    <MenuFlyoutItem Text="Edit"/>
+                                    <MenuFlyoutItem Text="Duplicate"/>
+                                    <MenuFlyoutSeparator/>
+                                    <MenuFlyoutItem Text="Delete" Foreground="#F87171"/>
+                                </MenuFlyout>
+                            </DropDownButton.Flyout>
+                        </DropDownButton>
+                        <SplitButton Content="Send">
+                            <SplitButton.Flyout>
+                                <MenuFlyout>
+                                    <MenuFlyoutItem Text="Send Now"/>
+                                    <MenuFlyoutItem Text="Schedule..."/>
+                                </MenuFlyout>
+                            </SplitButton.Flyout>
+                        </SplitButton>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+
+        </StackPanel>
+    </ScrollViewer>
+</Page>

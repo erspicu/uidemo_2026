@@ -1,0 +1,255 @@
+<Page x:Class="WpfDemo.Views.ControlsPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      Background="#0F172A" Title="Controls">
+
+    <Page.Resources>
+        <Style x:Key="Card" TargetType="Border">
+            <Setter Property="Background"   Value="#1E293B"/>
+            <Setter Property="CornerRadius" Value="12"/>
+            <Setter Property="Padding"      Value="20"/>
+        </Style>
+        <Style x:Key="SectionTitle" TargetType="TextBlock">
+            <Setter Property="FontSize"     Value="12"/>
+            <Setter Property="FontWeight"   Value="SemiBold"/>
+            <Setter Property="Foreground"   Value="#94A3B8"/>
+            <Setter Property="Margin"       Value="0,0,0,12"/>
+        </Style>
+        <!-- Primary Button -->
+        <Style x:Key="BtnPrimary" TargetType="Button">
+            <Setter Property="Background"  Value="#7C3AED"/>
+            <Setter Property="Foreground"  Value="White"/>
+            <Setter Property="Padding"     Value="18,7"/>
+            <Setter Property="Margin"      Value="0,0,8,8"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Cursor"      Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" CornerRadius="8"
+                                Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#6D28D9"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="BtnSecondary" TargetType="Button" BasedOn="{StaticResource BtnPrimary}">
+            <Setter Property="Background" Value="#334155"/>
+            <Setter Property="Foreground" Value="#CBD5E1"/>
+        </Style>
+        <Style x:Key="BtnDanger" TargetType="Button" BasedOn="{StaticResource BtnPrimary}">
+            <Setter Property="Background" Value="#DC2626"/>
+        </Style>
+        <Style x:Key="BtnOutline" TargetType="Button" BasedOn="{StaticResource BtnPrimary}">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="#64748B"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" CornerRadius="8"
+                                Padding="{TemplateBinding Padding}"
+                                BorderBrush="#334155" BorderThickness="1">
+                            <ContentPresenter HorizontalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Page.Resources>
+
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel Margin="32,28">
+
+            <!-- Header -->
+            <StackPanel Margin="0,0,0,20">
+                <TextBlock Text="Controls" FontSize="28" FontWeight="Bold" Foreground="#F1F5F9"/>
+                <TextBlock Text="Interactive showcase of built-in WPF controls"
+                           FontSize="14" Foreground="#64748B" Margin="0,4,0,0"/>
+            </StackPanel>
+
+            <!-- Row 1 -->
+            <Grid Margin="0,0,0,12">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="12"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- Buttons -->
+                <Border Grid.Column="0" Style="{StaticResource Card}">
+                    <StackPanel>
+                        <TextBlock Text="BUTTONS" Style="{StaticResource SectionTitle}"/>
+                        <WrapPanel>
+                            <Button Style="{StaticResource BtnPrimary}"   Content="Primary"
+                                    Command="{Binding PrimaryCommand}"/>
+                            <Button Style="{StaticResource BtnSecondary}" Content="Secondary"
+                                    Command="{Binding SecondaryCommand}"/>
+                            <Button Style="{StaticResource BtnDanger}"    Content="Danger"
+                                    Command="{Binding DangerCommand}"/>
+                            <Button Style="{StaticResource BtnPrimary}"   Content="Disabled"
+                                    IsEnabled="False" Margin="0,0,8,8"/>
+                            <Button Style="{StaticResource BtnOutline}"   Content="↺ Reset"
+                                    Command="{Binding ResetCommand}"/>
+                        </WrapPanel>
+                        <Border Background="#0F172A" CornerRadius="8" Padding="14,10" Margin="0,8,0,0">
+                            <TextBlock Text="{Binding StatusMessage}" FontSize="13" Foreground="#A78BFA"
+                                       TextWrapping="Wrap"/>
+                        </Border>
+                    </StackPanel>
+                </Border>
+
+                <!-- Text Inputs -->
+                <Border Grid.Column="2" Style="{StaticResource Card}">
+                    <StackPanel>
+                        <TextBlock Text="TEXT INPUTS" Style="{StaticResource SectionTitle}"/>
+                        <StackPanel Margin="0,0,0,10">
+                            <TextBlock Text="TextBox" FontSize="12" Foreground="#64748B" Margin="0,0,0,4"/>
+                            <TextBox Text="{Binding InputText, UpdateSourceTrigger=PropertyChanged}"
+                                     Background="#0F172A" Foreground="#F1F5F9"
+                                     BorderBrush="#334155" Padding="8,6"/>
+                        </StackPanel>
+                        <StackPanel Margin="0,0,0,10">
+                            <TextBlock Text="PasswordBox" FontSize="12" Foreground="#64748B" Margin="0,0,0,4"/>
+                            <PasswordBox Password="secret123"
+                                         Background="#0F172A" Foreground="#F1F5F9"
+                                         BorderBrush="#334155" Padding="8,6"/>
+                        </StackPanel>
+                        <StackPanel>
+                            <TextBlock Text="ComboBox" FontSize="12" Foreground="#64748B" Margin="0,0,0,4"/>
+                            <ComboBox ItemsSource="{Binding ComboItems}"
+                                      SelectedIndex="{Binding SelectedIndex}"
+                                      Background="#0F172A" Foreground="#F1F5F9"
+                                      BorderBrush="#334155" Padding="8,6"/>
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
+            </Grid>
+
+            <!-- Row 2 -->
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="12"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- Selection Controls -->
+                <Border Grid.Column="0" Style="{StaticResource Card}">
+                    <StackPanel>
+                        <TextBlock Text="SELECTION CONTROLS" Style="{StaticResource SectionTitle}"/>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Grid.Column="0" Margin="0,0,8,0">
+                                <TextBlock Text="CheckBox" FontSize="12" Foreground="#64748B" Margin="0,0,0,8"/>
+                                <CheckBox Content="Option One"   IsChecked="True"  Foreground="#CBD5E1" Margin="0,0,0,6"/>
+                                <CheckBox Content="Option Two"   IsChecked="False" Foreground="#CBD5E1" Margin="0,0,0,6"/>
+                                <CheckBox Content="Option Three" IsChecked="True"  Foreground="#CBD5E1"/>
+                            </StackPanel>
+                            <StackPanel Grid.Column="1">
+                                <TextBlock Text="RadioButton" FontSize="12" Foreground="#64748B" Margin="0,0,0,8"/>
+                                <RadioButton Content="Option A" GroupName="r1" Foreground="#CBD5E1" Margin="0,0,0,6"/>
+                                <RadioButton Content="Option B" GroupName="r1" IsChecked="True" Foreground="#CBD5E1" Margin="0,0,0,6"/>
+                                <RadioButton Content="Option C" GroupName="r1" Foreground="#CBD5E1"/>
+                            </StackPanel>
+                        </Grid>
+                        <Separator Background="#334155" Margin="0,12"/>
+                        <StackPanel>
+                            <TextBlock Text="ToggleButton" FontSize="12" Foreground="#64748B" Margin="0,0,0,8"/>
+                            <ToggleButton IsChecked="{Binding IsToggled}"
+                                          Foreground="White" Padding="14,6" HorizontalAlignment="Left">
+                                <ToggleButton.Style>
+                                    <Style TargetType="ToggleButton">
+                                        <Setter Property="Background" Value="#334155"/>
+                                        <Setter Property="BorderThickness" Value="0"/>
+                                        <Setter Property="Template">
+                                            <Setter.Value>
+                                                <ControlTemplate TargetType="ToggleButton">
+                                                    <Border Background="{TemplateBinding Background}"
+                                                            CornerRadius="6" Padding="{TemplateBinding Padding}">
+                                                        <ContentPresenter/>
+                                                    </Border>
+                                                    <ControlTemplate.Triggers>
+                                                        <Trigger Property="IsChecked" Value="True">
+                                                            <Setter Property="Background" Value="#7C3AED"/>
+                                                        </Trigger>
+                                                    </ControlTemplate.Triggers>
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Style>
+                                </ToggleButton.Style>
+                                <TextBlock>
+                                    <TextBlock.Style>
+                                        <Style TargetType="TextBlock">
+                                            <Setter Property="Text"       Value="OFF"/>
+                                            <Setter Property="Foreground" Value="#94A3B8"/>
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding IsToggled}" Value="True">
+                                                    <Setter Property="Text"       Value="ON ✓"/>
+                                                    <Setter Property="Foreground" Value="White"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </TextBlock.Style>
+                                </TextBlock>
+                            </ToggleButton>
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
+
+                <!-- Sliders -->
+                <Border Grid.Column="2" Style="{StaticResource Card}">
+                    <StackPanel>
+                        <TextBlock Text="RANGE CONTROLS" Style="{StaticResource SectionTitle}"/>
+                        <StackPanel Margin="0,0,0,14">
+                            <Grid Margin="0,0,0,4">
+                                <TextBlock Text="Slider" FontSize="12" Foreground="#64748B"/>
+                                <TextBlock HorizontalAlignment="Right" FontSize="12"
+                                           Foreground="#A78BFA" FontWeight="SemiBold">
+                                    <TextBlock.Text>
+                                        <Binding Path="SliderValue" StringFormat="{}{0:F0}%"/>
+                                    </TextBlock.Text>
+                                </TextBlock>
+                            </Grid>
+                            <Slider Value="{Binding SliderValue}" Minimum="0" Maximum="100"/>
+                        </StackPanel>
+                        <StackPanel Margin="0,0,0,14">
+                            <Grid Margin="0,0,0,4">
+                                <TextBlock Text="ProgressBar" FontSize="12" Foreground="#64748B"/>
+                                <TextBlock HorizontalAlignment="Right" FontSize="12"
+                                           Foreground="#34D399" FontWeight="SemiBold">
+                                    <TextBlock.Text>
+                                        <Binding Path="ProgressValue" StringFormat="{}{0:F0}%"/>
+                                    </TextBlock.Text>
+                                </TextBlock>
+                            </Grid>
+                            <ProgressBar Value="{Binding ProgressValue}" Minimum="0" Maximum="100"
+                                         Height="10" Foreground="#34D399" Background="#334155"/>
+                        </StackPanel>
+                        <StackPanel Margin="0,0,0,14">
+                            <TextBlock Text="Indeterminate ProgressBar" FontSize="12"
+                                       Foreground="#64748B" Margin="0,0,0,4"/>
+                            <ProgressBar IsIndeterminate="True" Height="6"
+                                         Foreground="#7C3AED" Background="#334155"/>
+                        </StackPanel>
+                        <StackPanel>
+                            <TextBlock Text="DatePicker" FontSize="12" Foreground="#64748B" Margin="0,0,0,4"/>
+                            <DatePicker Background="#0F172A" Foreground="#F1F5F9"
+                                        BorderBrush="#334155"/>
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
+
+            </Grid>
+        </StackPanel>
+    </ScrollViewer>
+</Page>

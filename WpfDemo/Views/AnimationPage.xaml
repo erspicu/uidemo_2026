@@ -1,0 +1,241 @@
+<Page x:Class="WpfDemo.Views.AnimationPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      Background="#0F172A" Title="Animation">
+
+    <Page.Triggers>
+        <!-- Wave bars: staggered opacity loop via Storyboard -->
+        <EventTrigger RoutedEvent="Page.Loaded">
+            <BeginStoryboard>
+                <Storyboard>
+                    <!-- Bar 1 -->
+                    <DoubleAnimation Storyboard.TargetName="W1" Storyboard.TargetProperty="Opacity"
+                                     From="1" To="0.15" Duration="0:0:0.45" AutoReverse="True"
+                                     RepeatBehavior="Forever" BeginTime="0:0:0" EasingFunction="{x:Null}"/>
+                    <!-- Bar 2 -->
+                    <DoubleAnimation Storyboard.TargetName="W2" Storyboard.TargetProperty="Opacity"
+                                     From="1" To="0.15" Duration="0:0:0.45" AutoReverse="True"
+                                     RepeatBehavior="Forever" BeginTime="0:0:0.1"/>
+                    <!-- Bar 3 -->
+                    <DoubleAnimation Storyboard.TargetName="W3" Storyboard.TargetProperty="Opacity"
+                                     From="1" To="0.15" Duration="0:0:0.45" AutoReverse="True"
+                                     RepeatBehavior="Forever" BeginTime="0:0:0.2"/>
+                    <!-- Bar 4 -->
+                    <DoubleAnimation Storyboard.TargetName="W4" Storyboard.TargetProperty="Opacity"
+                                     From="1" To="0.15" Duration="0:0:0.45" AutoReverse="True"
+                                     RepeatBehavior="Forever" BeginTime="0:0:0.3"/>
+                    <!-- Bar 5 -->
+                    <DoubleAnimation Storyboard.TargetName="W5" Storyboard.TargetProperty="Opacity"
+                                     From="1" To="0.15" Duration="0:0:0.45" AutoReverse="True"
+                                     RepeatBehavior="Forever" BeginTime="0:0:0.4"/>
+                    <!-- Bar 6 -->
+                    <DoubleAnimation Storyboard.TargetName="W6" Storyboard.TargetProperty="Opacity"
+                                     From="1" To="0.15" Duration="0:0:0.45" AutoReverse="True"
+                                     RepeatBehavior="Forever" BeginTime="0:0:0.5"/>
+                    <!-- Bar 7 -->
+                    <DoubleAnimation Storyboard.TargetName="W7" Storyboard.TargetProperty="Opacity"
+                                     From="1" To="0.15" Duration="0:0:0.45" AutoReverse="True"
+                                     RepeatBehavior="Forever" BeginTime="0:0:0.6"/>
+
+                    <!-- Pulse ring opacity -->
+                    <DoubleAnimation Storyboard.TargetName="PulseRing" Storyboard.TargetProperty="Opacity"
+                                     From="0.4" To="0.05" Duration="0:0:0.75" AutoReverse="True"
+                                     RepeatBehavior="Forever"/>
+                    <!-- Pulse core scale -->
+                    <DoubleAnimation Storyboard.TargetName="PulseCore" Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleX)"
+                                     From="1" To="0.85" Duration="0:0:0.75" AutoReverse="True"
+                                     RepeatBehavior="Forever" BeginTime="0:0:0.375"/>
+                    <DoubleAnimation Storyboard.TargetName="PulseCore" Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleY)"
+                                     From="1" To="0.85" Duration="0:0:0.75" AutoReverse="True"
+                                     RepeatBehavior="Forever" BeginTime="0:0:0.375"/>
+
+                    <!-- Dots pulse -->
+                    <DoubleAnimation Storyboard.TargetName="Dot1" Storyboard.TargetProperty="Opacity"
+                                     From="1" To="0.15" Duration="0:0:0.45" AutoReverse="True"
+                                     RepeatBehavior="Forever" BeginTime="0:0:0"/>
+                    <DoubleAnimation Storyboard.TargetName="Dot2" Storyboard.TargetProperty="Opacity"
+                                     From="1" To="0.15" Duration="0:0:0.45" AutoReverse="True"
+                                     RepeatBehavior="Forever" BeginTime="0:0:0.3"/>
+                    <DoubleAnimation Storyboard.TargetName="Dot3" Storyboard.TargetProperty="Opacity"
+                                     From="1" To="0.15" Duration="0:0:0.45" AutoReverse="True"
+                                     RepeatBehavior="Forever" BeginTime="0:0:0.6"/>
+                </Storyboard>
+            </BeginStoryboard>
+        </EventTrigger>
+    </Page.Triggers>
+
+    <Page.Resources>
+        <Style x:Key="Card" TargetType="Border">
+            <Setter Property="Background"   Value="#1E293B"/>
+            <Setter Property="CornerRadius" Value="12"/>
+            <Setter Property="Padding"      Value="24"/>
+        </Style>
+        <Style x:Key="SectionTitle" TargetType="TextBlock">
+            <Setter Property="FontSize"   Value="12"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Foreground" Value="#94A3B8"/>
+            <Setter Property="Margin"     Value="0,0,0,14"/>
+        </Style>
+        <Style x:Key="BtnRun" TargetType="Button">
+            <Setter Property="Background"      Value="#7C3AED"/>
+            <Setter Property="Foreground"      Value="White"/>
+            <Setter Property="Padding"         Value="16,7"/>
+            <Setter Property="Margin"          Value="0,0,8,0"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Cursor"          Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" CornerRadius="8"
+                                Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Background" Value="#334155"/>
+                                <Setter Property="Foreground" Value="#64748B"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="BtnStop"  TargetType="Button" BasedOn="{StaticResource BtnRun}">
+            <Setter Property="Background" Value="#DC2626"/>
+        </Style>
+        <Style x:Key="BtnReset" TargetType="Button" BasedOn="{StaticResource BtnRun}">
+            <Setter Property="Background" Value="#334155"/>
+            <Setter Property="Foreground" Value="#CBD5E1"/>
+        </Style>
+    </Page.Resources>
+
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel Margin="32,28">
+
+            <!-- Header -->
+            <StackPanel Margin="0,0,0,20">
+                <TextBlock Text="Animation" FontSize="28" FontWeight="Bold" Foreground="#F1F5F9"/>
+                <TextBlock Text="WPF Storyboard &amp; code-driven animations"
+                           FontSize="14" Foreground="#64748B" Margin="0,4,0,0"/>
+            </StackPanel>
+
+            <!-- Row 1: 3 loader cards -->
+            <UniformGrid Columns="3" Margin="0,0,0,12">
+
+                <!-- Pulsing Dots -->
+                <Border Style="{StaticResource Card}" Margin="0,0,12,0">
+                    <StackPanel>
+                        <TextBlock Text="PULSING DOTS" Style="{StaticResource SectionTitle}"/>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <Ellipse x:Name="Dot1" Width="18" Height="18" Fill="#A78BFA" Margin="0,0,10,0"/>
+                            <Ellipse x:Name="Dot2" Width="18" Height="18" Fill="#818CF8" Margin="0,0,10,0"/>
+                            <Ellipse x:Name="Dot3" Width="18" Height="18" Fill="#60A5FA"/>
+                        </StackPanel>
+                        <TextBlock Text="Staggered Storyboard animation" FontSize="11"
+                                   Foreground="#475569" HorizontalAlignment="Center" Margin="0,14,0,0"/>
+                    </StackPanel>
+                </Border>
+
+                <!-- Pulse Ring -->
+                <Border Style="{StaticResource Card}" Margin="0,0,12,0">
+                    <StackPanel>
+                        <TextBlock Text="PULSE RING" Style="{StaticResource SectionTitle}"/>
+                        <Grid Width="80" Height="80" HorizontalAlignment="Center">
+                            <Ellipse x:Name="PulseRing" Width="80" Height="80"
+                                     Fill="#7C3AED" Opacity="0.4"/>
+                            <Ellipse x:Name="PulseCore" Width="52" Height="52"
+                                     Fill="#A78BFA"
+                                     HorizontalAlignment="Center" VerticalAlignment="Center"
+                                     RenderTransformOrigin="0.5,0.5">
+                                <Ellipse.RenderTransform>
+                                    <ScaleTransform ScaleX="1" ScaleY="1"/>
+                                </Ellipse.RenderTransform>
+                            </Ellipse>
+                        </Grid>
+                        <TextBlock Text="ScaleTransform Storyboard" FontSize="11"
+                                   Foreground="#475569" HorizontalAlignment="Center" Margin="0,14,0,0"/>
+                    </StackPanel>
+                </Border>
+
+                <!-- Indeterminate -->
+                <Border Style="{StaticResource Card}">
+                    <StackPanel>
+                        <TextBlock Text="INDETERMINATE BAR" Style="{StaticResource SectionTitle}"/>
+                        <StackPanel>
+                            <ProgressBar IsIndeterminate="True" Height="8" Margin="0,0,0,8"
+                                         Foreground="#7C3AED" Background="#334155"/>
+                            <ProgressBar IsIndeterminate="True" Height="4" Margin="20,0,20,8"
+                                         Foreground="#A78BFA" Background="#334155"/>
+                            <ProgressBar IsIndeterminate="True" Height="8" Margin="40,0,40,0"
+                                         Foreground="#60A5FA" Background="#334155"/>
+                        </StackPanel>
+                        <TextBlock Text="Built-in IsIndeterminate" FontSize="11"
+                                   Foreground="#475569" HorizontalAlignment="Center" Margin="0,14,0,0"/>
+                    </StackPanel>
+                </Border>
+
+            </UniformGrid>
+
+            <!-- Row 2: Progress + Wave -->
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="12"/>
+                    <ColumnDefinition Width="220"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- Interactive Progress -->
+                <Border Grid.Column="0" Style="{StaticResource Card}">
+                    <StackPanel>
+                        <TextBlock Text="PROGRESS ANIMATION" Style="{StaticResource SectionTitle}"/>
+                        <Border Background="#0F172A" CornerRadius="12" Padding="0,20" Margin="0,0,0,14">
+                            <StackPanel HorizontalAlignment="Center">
+                                <TextBlock x:Name="CounterLabel" Text="0%"
+                                           FontSize="48" FontWeight="Bold" Foreground="#A78BFA"
+                                           HorizontalAlignment="Center"/>
+                                <TextBlock Text="complete" FontSize="12" Foreground="#475569"
+                                           HorizontalAlignment="Center"/>
+                            </StackPanel>
+                        </Border>
+                        <ProgressBar x:Name="MainProgressBar" Height="12" Value="0" Maximum="100"
+                                     Foreground="#7C3AED" Background="#334155" Margin="0,0,0,14"/>
+                        <StackPanel Orientation="Horizontal">
+                            <Button x:Name="RunBtn"   Style="{StaticResource BtnRun}"   Content="▶ Run"
+                                    Click="OnRunClicked"/>
+                            <Button x:Name="StopBtn"  Style="{StaticResource BtnStop}"  Content="⏹ Stop"
+                                    Click="OnStopClicked" IsEnabled="False"/>
+                            <Button x:Name="ResetBtn" Style="{StaticResource BtnReset}" Content="↺ Reset"
+                                    Click="OnResetClicked"/>
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
+
+                <!-- Wave bars -->
+                <Border Grid.Column="2" Style="{StaticResource Card}">
+                    <StackPanel>
+                        <TextBlock Text="WAVE EQUALIZER" Style="{StaticResource SectionTitle}"/>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Height="80">
+                            <Rectangle x:Name="W1" Width="16" Height="40" Fill="#A78BFA" RadiusX="4" RadiusY="4"
+                                       Margin="0,0,6,0" VerticalAlignment="Bottom"/>
+                            <Rectangle x:Name="W2" Width="16" Height="65" Fill="#818CF8" RadiusX="4" RadiusY="4"
+                                       Margin="0,0,6,0" VerticalAlignment="Bottom"/>
+                            <Rectangle x:Name="W3" Width="16" Height="30" Fill="#60A5FA" RadiusX="4" RadiusY="4"
+                                       Margin="0,0,6,0" VerticalAlignment="Bottom"/>
+                            <Rectangle x:Name="W4" Width="16" Height="75" Fill="#34D399" RadiusX="4" RadiusY="4"
+                                       Margin="0,0,6,0" VerticalAlignment="Bottom"/>
+                            <Rectangle x:Name="W5" Width="16" Height="50" Fill="#FBBF24" RadiusX="4" RadiusY="4"
+                                       Margin="0,0,6,0" VerticalAlignment="Bottom"/>
+                            <Rectangle x:Name="W6" Width="16" Height="60" Fill="#F87171" RadiusX="4" RadiusY="4"
+                                       Margin="0,0,6,0" VerticalAlignment="Bottom"/>
+                            <Rectangle x:Name="W7" Width="16" Height="35" Fill="#E879F9" RadiusX="4" RadiusY="4"
+                                       VerticalAlignment="Bottom"/>
+                        </StackPanel>
+                        <TextBlock Text="Staggered Storyboard" FontSize="11"
+                                   Foreground="#475569" HorizontalAlignment="Center" Margin="0,12,0,0"/>
+                    </StackPanel>
+                </Border>
+
+            </Grid>
+        </StackPanel>
+    </ScrollViewer>
+</Page>

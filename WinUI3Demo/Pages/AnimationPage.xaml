@@ -1,0 +1,114 @@
+<Page
+    x:Class="WinUI3Demo.Pages.AnimationPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Background="Transparent">
+
+    <ScrollViewer>
+        <StackPanel Spacing="24" Padding="32,24">
+
+            <!-- Header -->
+            <StackPanel>
+                <TextBlock Text="Animation" FontSize="28" FontWeight="Bold"/>
+                <TextBlock Text="WinUI 3 Storyboard &amp; Composition animations" Foreground="#9CA3AF" Margin="0,4,0,0"/>
+            </StackPanel>
+
+            <!-- Wave Bars -->
+            <Border Background="#1F2937" CornerRadius="12" Padding="24">
+                <StackPanel Spacing="16">
+                    <TextBlock Text="🎵  Wave Equalizer" FontSize="16" FontWeight="SemiBold"/>
+                    <StackPanel Orientation="Horizontal" Spacing="8" HorizontalAlignment="Center" Height="80">
+                        <Border x:Name="Bar1" Width="18" CornerRadius="4" Background="#60A5FA" VerticalAlignment="Bottom" Height="20">
+                            <Border.RenderTransform>
+                                <ScaleTransform x:Name="Scale1" ScaleX="1" ScaleY="1"/>
+                            </Border.RenderTransform>
+                            <Border.RenderTransformOrigin>0.5,1</Border.RenderTransformOrigin>
+                        </Border>
+                        <Border x:Name="Bar2" Width="18" CornerRadius="4" Background="#818CF8" VerticalAlignment="Bottom" Height="20">
+                            <Border.RenderTransform>
+                                <ScaleTransform x:Name="Scale2" ScaleX="1" ScaleY="1"/>
+                            </Border.RenderTransform>
+                            <Border.RenderTransformOrigin>0.5,1</Border.RenderTransformOrigin>
+                        </Border>
+                        <Border x:Name="Bar3" Width="18" CornerRadius="4" Background="#34D399" VerticalAlignment="Bottom" Height="20">
+                            <Border.RenderTransform>
+                                <ScaleTransform x:Name="Scale3" ScaleX="1" ScaleY="1"/>
+                            </Border.RenderTransform>
+                            <Border.RenderTransformOrigin>0.5,1</Border.RenderTransformOrigin>
+                        </Border>
+                        <Border x:Name="Bar4" Width="18" CornerRadius="4" Background="#F59E0B" VerticalAlignment="Bottom" Height="20">
+                            <Border.RenderTransform>
+                                <ScaleTransform x:Name="Scale4" ScaleX="1" ScaleY="1"/>
+                            </Border.RenderTransform>
+                            <Border.RenderTransformOrigin>0.5,1</Border.RenderTransformOrigin>
+                        </Border>
+                        <Border x:Name="Bar5" Width="18" CornerRadius="4" Background="#F87171" VerticalAlignment="Bottom" Height="20">
+                            <Border.RenderTransform>
+                                <ScaleTransform x:Name="Scale5" ScaleX="1" ScaleY="1"/>
+                            </Border.RenderTransform>
+                            <Border.RenderTransformOrigin>0.5,1</Border.RenderTransformOrigin>
+                        </Border>
+                        <Border x:Name="Bar6" Width="18" CornerRadius="4" Background="#A78BFA" VerticalAlignment="Bottom" Height="20">
+                            <Border.RenderTransform>
+                                <ScaleTransform x:Name="Scale6" ScaleX="1" ScaleY="1"/>
+                            </Border.RenderTransform>
+                            <Border.RenderTransformOrigin>0.5,1</Border.RenderTransformOrigin>
+                        </Border>
+                        <Border x:Name="Bar7" Width="18" CornerRadius="4" Background="#6EE7B7" VerticalAlignment="Bottom" Height="20">
+                            <Border.RenderTransform>
+                                <ScaleTransform x:Name="Scale7" ScaleX="1" ScaleY="1"/>
+                            </Border.RenderTransform>
+                            <Border.RenderTransformOrigin>0.5,1</Border.RenderTransformOrigin>
+                        </Border>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+
+            <!-- Pulse Ring + Counter -->
+            <Grid ColumnSpacing="16">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <!-- Pulse Ring -->
+                <Border Grid.Column="0" Background="#1F2937" CornerRadius="12" Padding="24">
+                    <StackPanel Spacing="16">
+                        <TextBlock Text="💫  Pulse Ring" FontSize="16" FontWeight="SemiBold"/>
+                        <Grid HorizontalAlignment="Center" Width="120" Height="120">
+                            <Ellipse x:Name="PulseOuter" Width="120" Height="120" Stroke="#3B82F6" StrokeThickness="2" Opacity="0.3"/>
+                            <Ellipse x:Name="PulseMid"   Width="80"  Height="80"  Stroke="#60A5FA" StrokeThickness="2" Opacity="0.5"/>
+                            <Ellipse x:Name="PulseCore"  Width="40"  Height="40"  Fill="#3B82F6"/>
+                        </Grid>
+                    </StackPanel>
+                </Border>
+
+                <!-- Counter -->
+                <Border Grid.Column="1" Background="#1F2937" CornerRadius="12" Padding="24">
+                    <StackPanel Spacing="16">
+                        <TextBlock Text="🔢  Live Counter" FontSize="16" FontWeight="SemiBold"/>
+                        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="12">
+                            <TextBlock x:Name="CounterText" Text="0" FontSize="52" FontWeight="Bold" Foreground="#60A5FA" HorizontalAlignment="Center"/>
+                            <TextBlock Text="requests / sec" Foreground="#9CA3AF" HorizontalAlignment="Center"/>
+                            <ProgressBar x:Name="CounterBar" Value="0" Maximum="100" Height="8" Width="200"/>
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
+            </Grid>
+
+            <!-- Orbiting Dots -->
+            <Border Background="#1F2937" CornerRadius="12" Padding="24">
+                <StackPanel Spacing="16">
+                    <TextBlock Text="⭕  Orbiting Dots" FontSize="16" FontWeight="SemiBold"/>
+                    <Canvas HorizontalAlignment="Center" Width="200" Height="200">
+                        <Ellipse Width="200" Height="200" Stroke="#374151" StrokeThickness="1"/>
+                        <Ellipse x:Name="Dot1" Width="16" Height="16" Fill="#60A5FA" Canvas.Left="92" Canvas.Top="0"/>
+                        <Ellipse x:Name="Dot2" Width="12" Height="12" Fill="#34D399" Canvas.Left="92" Canvas.Top="0"/>
+                        <Ellipse x:Name="Dot3" Width="10" Height="10" Fill="#F59E0B" Canvas.Left="92" Canvas.Top="0"/>
+                    </Canvas>
+                </StackPanel>
+            </Border>
+
+        </StackPanel>
+    </ScrollViewer>
+</Page>

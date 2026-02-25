@@ -1,0 +1,6 @@
+<Project>
+  <!-- Override AppxPackage targets that require Visual Studio DLLs (not available in CLI-only builds) -->
+  <Target Name="ExpandPriContent" />
+  <Target Name="RemovePayloadDuplicates" />
+  <Target Name="AddPriPayloadFilesToCopyToOutputDirectoryItems" />
+</Project>

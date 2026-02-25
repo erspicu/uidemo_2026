@@ -1,0 +1,215 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:AvaloniaDemo.ViewModels"
+             x:Class="AvaloniaDemo.Views.ControlsDemoView"
+             x:DataType="vm:ControlsDemoViewModel">
+
+    <UserControl.Styles>
+        <Style Selector="Border.section">
+            <Setter Property="CornerRadius" Value="12"/>
+            <Setter Property="Background"   Value="#1E293B"/>
+            <Setter Property="Padding"      Value="20,18"/>
+            <Setter Property="Margin"       Value="0,0,0,0"/>
+        </Style>
+        <Style Selector="TextBlock.section-title">
+            <Setter Property="FontSize"     Value="13"/>
+            <Setter Property="FontWeight"   Value="SemiBold"/>
+            <Setter Property="Foreground"   Value="#94A3B8"/>
+            <Setter Property="Margin"       Value="0,0,0,12"/>
+        </Style>
+        <!-- Primary Button -->
+        <Style Selector="Button.primary">
+            <Setter Property="Background"   Value="#7C3AED"/>
+            <Setter Property="Foreground"   Value="White"/>
+            <Setter Property="Padding"      Value="18,8"/>
+            <Setter Property="CornerRadius" Value="8"/>
+            <Setter Property="FontWeight"   Value="Medium"/>
+        </Style>
+        <Style Selector="Button.primary:pointerover /template/ ContentPresenter">
+            <Setter Property="Background" Value="#6D28D9"/>
+        </Style>
+        <!-- Secondary Button -->
+        <Style Selector="Button.secondary">
+            <Setter Property="Background"   Value="#334155"/>
+            <Setter Property="Foreground"   Value="#CBD5E1"/>
+            <Setter Property="Padding"      Value="18,8"/>
+            <Setter Property="CornerRadius" Value="8"/>
+        </Style>
+        <Style Selector="Button.secondary:pointerover /template/ ContentPresenter">
+            <Setter Property="Background" Value="#475569"/>
+        </Style>
+        <!-- Danger Button -->
+        <Style Selector="Button.danger">
+            <Setter Property="Background"   Value="#DC2626"/>
+            <Setter Property="Foreground"   Value="White"/>
+            <Setter Property="Padding"      Value="18,8"/>
+            <Setter Property="CornerRadius" Value="8"/>
+        </Style>
+        <Style Selector="Button.danger:pointerover /template/ ContentPresenter">
+            <Setter Property="Background" Value="#B91C1C"/>
+        </Style>
+        <!-- Reset Button -->
+        <Style Selector="Button.reset">
+            <Setter Property="Background"   Value="Transparent"/>
+            <Setter Property="Foreground"   Value="#64748B"/>
+            <Setter Property="Padding"      Value="18,8"/>
+            <Setter Property="CornerRadius" Value="8"/>
+            <Setter Property="BorderBrush"  Value="#334155"/>
+            <Setter Property="BorderThickness" Value="1"/>
+        </Style>
+    </UserControl.Styles>
+
+    <ScrollViewer>
+        <StackPanel Margin="32,28" Spacing="16">
+
+            <!-- Page Header -->
+            <StackPanel Spacing="4" Margin="0,0,0,8">
+                <TextBlock Text="Controls" FontSize="28" FontWeight="Bold" Foreground="#F1F5F9"/>
+                <TextBlock Text="Interactive showcase of built-in Avalonia UI controls"
+                           FontSize="14" Foreground="#64748B"/>
+            </StackPanel>
+
+            <!-- ── Row 1: Buttons + Text Input ── -->
+            <Grid ColumnDefinitions="*,*">
+
+                <!-- Buttons -->
+                <Border Grid.Column="0" Classes="section" Margin="0,0,8,0">
+                    <StackPanel Spacing="12">
+                        <TextBlock Classes="section-title" Text="BUTTONS"/>
+                        <WrapPanel Orientation="Horizontal">
+                            <WrapPanel.Styles>
+                                <Style Selector="Button">
+                                    <Setter Property="Margin" Value="0,0,8,8"/>
+                                </Style>
+                            </WrapPanel.Styles>
+                            <Button Classes="primary"   Content="Primary"
+                                    Command="{Binding PrimaryActionCommand}"/>
+                            <Button Classes="secondary" Content="Secondary"
+                                    Command="{Binding SecondaryActionCommand}"/>
+                            <Button Classes="danger"    Content="Danger"
+                                    Command="{Binding DangerActionCommand}"/>
+                            <Button Content="Disabled" IsEnabled="False"
+                                    Padding="18,8" CornerRadius="8"/>
+                            <Button Classes="reset" Content="Reset All"
+                                    Command="{Binding ResetAllCommand}"/>
+                        </WrapPanel>
+
+                        <!-- Status banner -->
+                        <Border CornerRadius="8" Background="#0F172A" Padding="14,10">
+                            <TextBlock Text="{Binding StatusMessage}"
+                                       FontSize="13" Foreground="#A78BFA"/>
+                        </Border>
+                    </StackPanel>
+                </Border>
+
+                <!-- Text Inputs -->
+                <Border Grid.Column="1" Classes="section" Margin="8,0,0,0">
+                    <StackPanel Spacing="12">
+                        <TextBlock Classes="section-title" Text="TEXT INPUTS"/>
+                        <StackPanel Spacing="8">
+                            <TextBlock Text="TextBox" FontSize="12" Foreground="#64748B"/>
+                            <TextBox Text="{Binding InputText}" CornerRadius="8"/>
+                        </StackPanel>
+                        <StackPanel Spacing="8">
+                            <TextBlock Text="PasswordBox" FontSize="12" Foreground="#64748B"/>
+                            <TextBox PasswordChar="●" Text="secret123" CornerRadius="8"/>
+                        </StackPanel>
+                        <StackPanel Spacing="8">
+                            <TextBlock Text="NumericUpDown" FontSize="12" Foreground="#64748B"/>
+                            <NumericUpDown Value="42" Minimum="0" Maximum="999"
+                                           CornerRadius="8"/>
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
+
+            </Grid>
+
+            <!-- ── Row 2: Toggles + Slider/Progress ── -->
+            <Grid ColumnDefinitions="*,*">
+
+                <!-- CheckBox / RadioButton / ToggleSwitch / ComboBox -->
+                <Border Grid.Column="0" Classes="section" Margin="0,0,8,0">
+                    <StackPanel Spacing="14">
+                        <TextBlock Classes="section-title" Text="SELECTION CONTROLS"/>
+
+                        <Grid ColumnDefinitions="*,*">
+                            <!-- CheckBoxes -->
+                            <StackPanel Grid.Column="0" Spacing="8">
+                                <TextBlock Text="CheckBox" FontSize="12" Foreground="#64748B" Margin="0,0,0,4"/>
+                                <CheckBox Content="Option One"   IsChecked="{Binding Check1}"/>
+                                <CheckBox Content="Option Two"   IsChecked="{Binding Check2}"/>
+                                <CheckBox Content="Option Three" IsChecked="{Binding Check3}"/>
+                            </StackPanel>
+
+                            <!-- RadioButtons -->
+                            <StackPanel Grid.Column="1" Spacing="8">
+                                <TextBlock Text="RadioButton" FontSize="12" Foreground="#64748B" Margin="0,0,0,4"/>
+                                <RadioButton Content="Option A" GroupName="demo"/>
+                                <RadioButton Content="Option B" GroupName="demo" IsChecked="True"/>
+                                <RadioButton Content="Option C" GroupName="demo"/>
+                            </StackPanel>
+                        </Grid>
+
+                        <Separator Margin="0,4"/>
+
+                        <!-- Toggle + Combo -->
+                        <Grid ColumnDefinitions="*,*">
+                            <StackPanel Grid.Column="0" Spacing="8">
+                                <TextBlock Text="ToggleSwitch" FontSize="12" Foreground="#64748B"/>
+                                <ToggleSwitch IsChecked="{Binding IsToggled}"
+                                              OnContent="ON" OffContent="OFF"/>
+                            </StackPanel>
+                            <StackPanel Grid.Column="1" Spacing="8">
+                                <TextBlock Text="ComboBox" FontSize="12" Foreground="#64748B"/>
+                                <ComboBox ItemsSource="{Binding ComboItems}"
+                                          SelectedIndex="{Binding SelectedIndex}"
+                                          HorizontalAlignment="Stretch"/>
+                            </StackPanel>
+                        </Grid>
+
+                    </StackPanel>
+                </Border>
+
+                <!-- Slider & ProgressBar -->
+                <Border Grid.Column="1" Classes="section" Margin="8,0,0,0">
+                    <StackPanel Spacing="14">
+                        <TextBlock Classes="section-title" Text="RANGE CONTROLS"/>
+
+                        <StackPanel Spacing="8">
+                            <Grid ColumnDefinitions="*,Auto">
+                                <TextBlock Grid.Column="0" Text="Slider" FontSize="12" Foreground="#64748B"/>
+                                <TextBlock Grid.Column="1"
+                                           Text="{Binding SliderValue, StringFormat='{}{0:F0}%'}"
+                                           FontSize="12" Foreground="#A78BFA" FontWeight="Bold"/>
+                            </Grid>
+                            <Slider Value="{Binding SliderValue}" Minimum="0" Maximum="100"/>
+                        </StackPanel>
+
+                        <StackPanel Spacing="8">
+                            <Grid ColumnDefinitions="*,Auto">
+                                <TextBlock Grid.Column="0" Text="ProgressBar" FontSize="12" Foreground="#64748B"/>
+                                <TextBlock Grid.Column="1"
+                                           Text="{Binding ProgressValue, StringFormat='{}{0:F0}%'}"
+                                           FontSize="12" Foreground="#34D399" FontWeight="Bold"/>
+                            </Grid>
+                            <ProgressBar Value="{Binding ProgressValue}" Minimum="0" Maximum="100"
+                                         Height="10" CornerRadius="5"/>
+                        </StackPanel>
+
+                        <StackPanel Spacing="8">
+                            <TextBlock Text="Indeterminate ProgressBar" FontSize="12" Foreground="#64748B"/>
+                            <ProgressBar IsIndeterminate="True" Height="6" CornerRadius="3"/>
+                        </StackPanel>
+
+                        <StackPanel Spacing="8">
+                            <TextBlock Text="Calendar" FontSize="12" Foreground="#64748B"/>
+                            <Calendar/>
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
+
+            </Grid>
+
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

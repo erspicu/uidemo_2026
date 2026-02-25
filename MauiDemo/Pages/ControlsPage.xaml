@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:MauiDemo"
+             x:Class="MauiDemo.Pages.ControlsPage"
+             BackgroundColor="#0F172A"
+             Title="Controls">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="32,28" Spacing="16">
+
+            <!-- Header -->
+            <VerticalStackLayout Spacing="4" Margin="0,0,0,8">
+                <Label Text="Controls" FontSize="28" FontAttributes="Bold" TextColor="#F1F5F9"/>
+                <Label Text="Interactive showcase of built-in MAUI controls"
+                       FontSize="14" TextColor="#64748B"/>
+            </VerticalStackLayout>
+
+            <!-- Row 1: Buttons + Inputs -->
+            <Grid ColumnDefinitions="*,*" ColumnSpacing="12">
+
+                <!-- Buttons -->
+                <Border Grid.Column="0" BackgroundColor="#1E293B" StrokeShape="RoundRectangle 12" Padding="20">
+                    <VerticalStackLayout Spacing="12">
+                        <Label Text="BUTTONS" FontSize="13" FontAttributes="Bold" TextColor="#94A3B8"/>
+                        <FlexLayout Wrap="Wrap" Direction="Row">
+                            <Button Text="Primary"   BackgroundColor="#7C3AED" TextColor="White"
+                                    CornerRadius="8" Padding="18,8" Margin="0,0,8,8"
+                                    Command="{Binding PrimaryCommand}"/>
+                            <Button Text="Secondary" BackgroundColor="#334155" TextColor="#CBD5E1"
+                                    CornerRadius="8" Padding="18,8" Margin="0,0,8,8"
+                                    Command="{Binding SecondaryCommand}"/>
+                            <Button Text="Danger"    BackgroundColor="#DC2626" TextColor="White"
+                                    CornerRadius="8" Padding="18,8" Margin="0,0,8,8"
+                                    Command="{Binding DangerCommand}"/>
+                            <Button Text="Disabled"  IsEnabled="False"
+                                    CornerRadius="8" Padding="18,8" Margin="0,0,8,8"/>
+                            <Button Text="↺ Reset"   BackgroundColor="Transparent" TextColor="#64748B"
+                                    CornerRadius="8" Padding="18,8" BorderColor="#334155" BorderWidth="1"
+                                    Command="{Binding ResetCommand}"/>
+                        </FlexLayout>
+                        <Border BackgroundColor="#0F172A" StrokeShape="RoundRectangle 8" Padding="14,10">
+                            <Label Text="{Binding StatusMessage}" FontSize="13" TextColor="#A78BFA"/>
+                        </Border>
+                    </VerticalStackLayout>
+                </Border>
+
+                <!-- Text Inputs -->
+                <Border Grid.Column="1" BackgroundColor="#1E293B" StrokeShape="RoundRectangle 12" Padding="20">
+                    <VerticalStackLayout Spacing="12">
+                        <Label Text="TEXT INPUTS" FontSize="13" FontAttributes="Bold" TextColor="#94A3B8"/>
+                        <VerticalStackLayout Spacing="6">
+                            <Label Text="Entry" FontSize="12" TextColor="#64748B"/>
+                            <Entry Text="{Binding InputText}" BackgroundColor="#0F172A"
+                                   TextColor="#F1F5F9"/>
+                        </VerticalStackLayout>
+                        <VerticalStackLayout Spacing="6">
+                            <Label Text="Password" FontSize="12" TextColor="#64748B"/>
+                            <Entry IsPassword="True" Text="secret123"
+                                   BackgroundColor="#0F172A" TextColor="#F1F5F9"/>
+                        </VerticalStackLayout>
+                        <VerticalStackLayout Spacing="6">
+                            <Label Text="Editor (Multi-line)" FontSize="12" TextColor="#64748B"/>
+                            <Editor Text="Multi-line&#x0a;text input" AutoSize="TextChanges"
+                                    BackgroundColor="#0F172A" TextColor="#F1F5F9" MinimumHeightRequest="60"/>
+                        </VerticalStackLayout>
+                    </VerticalStackLayout>
+                </Border>
+
+            </Grid>
+
+            <!-- Row 2: Toggles + Sliders -->
+            <Grid ColumnDefinitions="*,*" ColumnSpacing="12">
+
+                <!-- Selection Controls -->
+                <Border Grid.Column="0" BackgroundColor="#1E293B" StrokeShape="RoundRectangle 12" Padding="20">
+                    <VerticalStackLayout Spacing="14">
+                        <Label Text="SELECTION CONTROLS" FontSize="13" FontAttributes="Bold" TextColor="#94A3B8"/>
+                        <Grid ColumnDefinitions="*,*">
+                            <VerticalStackLayout Grid.Column="0" Spacing="8">
+                                <Label Text="CheckBox" FontSize="12" TextColor="#64748B"/>
+                                <HorizontalStackLayout Spacing="8">
+                                    <CheckBox IsChecked="True" Color="#7C3AED"/>
+                                    <Label Text="Option One" TextColor="#CBD5E1" VerticalOptions="Center"/>
+                                </HorizontalStackLayout>
+                                <HorizontalStackLayout Spacing="8">
+                                    <CheckBox IsChecked="False" Color="#7C3AED"/>
+                                    <Label Text="Option Two" TextColor="#CBD5E1" VerticalOptions="Center"/>
+                                </HorizontalStackLayout>
+                                <HorizontalStackLayout Spacing="8">
+                                    <CheckBox IsChecked="True" Color="#7C3AED"/>
+                                    <Label Text="Option Three" TextColor="#CBD5E1" VerticalOptions="Center"/>
+                                </HorizontalStackLayout>
+                            </VerticalStackLayout>
+                            <VerticalStackLayout Grid.Column="1" Spacing="8">
+                                <Label Text="RadioButton" FontSize="12" TextColor="#64748B"/>
+                                <RadioButton Content="Option A" GroupName="g1" TextColor="#CBD5E1"/>
+                                <RadioButton Content="Option B" GroupName="g1" IsChecked="True" TextColor="#CBD5E1"/>
+                                <RadioButton Content="Option C" GroupName="g1" TextColor="#CBD5E1"/>
+                            </VerticalStackLayout>
+                        </Grid>
+                        <BoxView HeightRequest="1" BackgroundColor="#334155"/>
+                        <Grid ColumnDefinitions="*,*">
+                            <VerticalStackLayout Grid.Column="0" Spacing="8">
+                                <Label Text="Switch" FontSize="12" TextColor="#64748B"/>
+                                <Switch IsToggled="{Binding IsToggled}" OnColor="#7C3AED"/>
+                            </VerticalStackLayout>
+                            <VerticalStackLayout Grid.Column="1" Spacing="8">
+                                <Label Text="Picker" FontSize="12" TextColor="#64748B"/>
+                                <Picker ItemsSource="{Binding ComboItems}"
+                                        SelectedIndex="{Binding SelectedIndex}"
+                                        TextColor="#F1F5F9" BackgroundColor="#0F172A"/>
+                            </VerticalStackLayout>
+                        </Grid>
+                    </VerticalStackLayout>
+                </Border>
+
+                <!-- Sliders & Progress -->
+                <Border Grid.Column="1" BackgroundColor="#1E293B" StrokeShape="RoundRectangle 12" Padding="20">
+                    <VerticalStackLayout Spacing="14">
+                        <Label Text="RANGE CONTROLS" FontSize="13" FontAttributes="Bold" TextColor="#94A3B8"/>
+                        <VerticalStackLayout Spacing="6">
+                            <Grid ColumnDefinitions="*,Auto">
+                                <Label Grid.Column="0" Text="Slider" FontSize="12" TextColor="#64748B"/>
+                                <Label Grid.Column="1" TextColor="#A78BFA" FontAttributes="Bold"
+                                       FontSize="12">
+                                    <Label.Text>
+                                        <Binding Path="SliderValue" StringFormat="{}{0:F0}%"/>
+                                    </Label.Text>
+                                </Label>
+                            </Grid>
+                            <Slider Value="{Binding SliderValue}" Minimum="0" Maximum="100"
+                                    MinimumTrackColor="#7C3AED" ThumbColor="#A78BFA"/>
+                        </VerticalStackLayout>
+                        <VerticalStackLayout Spacing="6">
+                            <Grid ColumnDefinitions="*,Auto">
+                                <Label Grid.Column="0" Text="ProgressBar" FontSize="12" TextColor="#64748B"/>
+                                <Label Grid.Column="1" TextColor="#34D399" FontAttributes="Bold"
+                                       FontSize="12">
+                                    <Label.Text>
+                                        <Binding Path="ProgressValue" StringFormat="{}{0:F0}%"/>
+                                    </Label.Text>
+                                </Label>
+                            </Grid>
+                            <ProgressBar Progress="{Binding ProgressValue, Converter={x:Static local:DivideBy100Converter.Instance}}"
+                                         ProgressColor="#34D399" BackgroundColor="#334155"/>
+                        </VerticalStackLayout>
+                        <VerticalStackLayout Spacing="6">
+                            <Label Text="ActivityIndicator (Spinner)" FontSize="12" TextColor="#64748B"/>
+                            <ActivityIndicator IsRunning="True" Color="#7C3AED"
+                                               HorizontalOptions="Start"/>
+                        </VerticalStackLayout>
+                        <VerticalStackLayout Spacing="6">
+                            <Label Text="DatePicker" FontSize="12" TextColor="#64748B"/>
+                            <DatePicker BackgroundColor="#0F172A" TextColor="#F1F5F9"/>
+                        </VerticalStackLayout>
+                        <VerticalStackLayout Spacing="6">
+                            <Label Text="Stepper" FontSize="12" TextColor="#64748B"/>
+                            <Stepper Minimum="0" Maximum="100" Value="42"/>
+                        </VerticalStackLayout>
+                    </VerticalStackLayout>
+                </Border>
+
+            </Grid>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

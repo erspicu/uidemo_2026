@@ -1,0 +1,33 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <RootNamespace>UnoDemo.WPF</RootNamespace>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Uno.WinUI.Skia.Wpf" Version="4.7.56" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="5.0.0" />
+    <PackageReference Include="Uno.Core.Extensions.Logging.Singleton" Version="4.0.1" />
+  </ItemGroup>
+  <!-- Include AppHead from UnoDemo.Base as a Uno XAML Page (not WPF ApplicationDefinition) -->
+  <ItemGroup>
+    <None Include="..\UnoDemo.Base\AppHead.xaml" />
+    <Page
+      Include="..\UnoDemo.Base\AppHead.xaml"
+      SubType="Designer"
+      XamlRuntime="WinUI"
+      Generator="MSBuild:Compile"
+      Link="AppHead.xaml" />
+    <Compile
+      Include="..\UnoDemo.Base\AppHead.xaml.cs"
+      XamlRuntime="WinUI"
+      DependentUpon="AppHead.xaml"
+      Link="AppHead.xaml.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\UnoDemo\UnoDemo.csproj" />
+  </ItemGroup>
+</Project>

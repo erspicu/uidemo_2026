@@ -1,0 +1,43 @@
+<Page
+    x:Class="UnoDemo.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <NavigationView
+        x:Name="NavView"
+        RequestedTheme="Dark"
+        PaneDisplayMode="Left"
+        IsBackButtonVisible="Collapsed"
+        IsSettingsVisible="False"
+        SelectionChanged="NavView_SelectionChanged"
+        PaneTitle="Uno Demo"
+        OpenPaneLength="220">
+
+        <NavigationView.Resources>
+            <SolidColorBrush x:Key="NavigationViewDefaultPaneBackground"  Color="#111827"/>
+            <SolidColorBrush x:Key="NavigationViewExpandedPaneBackground" Color="#111827"/>
+            <SolidColorBrush x:Key="NavigationViewTopPaneBackground"      Color="#111827"/>
+            <SolidColorBrush x:Key="NavigationViewContentBackground"      Color="#0F172A"/>
+        </NavigationView.Resources>
+
+        <NavigationView.MenuItems>
+            <NavigationViewItem Tag="dashboard" Content="Dashboard">
+                <NavigationViewItem.Icon><FontIcon Glyph="&#xE80F;"/></NavigationViewItem.Icon>
+            </NavigationViewItem>
+            <NavigationViewItem Tag="controls" Content="Controls">
+                <NavigationViewItem.Icon><FontIcon Glyph="&#xE7FC;"/></NavigationViewItem.Icon>
+            </NavigationViewItem>
+            <NavigationViewItem Tag="animation" Content="Animation">
+                <NavigationViewItem.Icon><FontIcon Glyph="&#xE768;"/></NavigationViewItem.Icon>
+            </NavigationViewItem>
+            <NavigationViewItem Tag="data" Content="Data Grid">
+                <NavigationViewItem.Icon><FontIcon Glyph="&#xE9D9;"/></NavigationViewItem.Icon>
+            </NavigationViewItem>
+        </NavigationView.MenuItems>
+
+        <Frame x:Name="ContentFrame"/>
+    </NavigationView>
+</Page>

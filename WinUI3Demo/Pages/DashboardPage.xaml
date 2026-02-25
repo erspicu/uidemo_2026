@@ -1,0 +1,86 @@
+<Page
+    x:Class="WinUI3Demo.Pages.DashboardPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:models="using:WinUI3Demo.Models"
+    Background="Transparent">
+
+    <ScrollViewer>
+        <StackPanel Spacing="24" Padding="32,24">
+
+            <!-- Header -->
+            <StackPanel>
+                <TextBlock Text="Dashboard" FontSize="28" FontWeight="Bold"/>
+                <TextBlock Text="Welcome back! Here's what's happening." Foreground="#9CA3AF" Margin="0,4,0,0"/>
+            </StackPanel>
+
+            <!-- Stat Cards -->
+            <Grid ColumnSpacing="16">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <Border Grid.Column="0" Background="#1F2937" CornerRadius="12" Padding="20">
+                    <StackPanel Spacing="8">
+                        <TextBlock Text="👥" FontSize="24"/>
+                        <TextBlock Text="{x:Bind ViewModel.TotalUsers}" FontSize="30" FontWeight="Bold" Foreground="#60A5FA"/>
+                        <TextBlock Text="Total Users" Foreground="#9CA3AF" FontSize="13"/>
+                    </StackPanel>
+                </Border>
+
+                <Border Grid.Column="1" Background="#1F2937" CornerRadius="12" Padding="20">
+                    <StackPanel Spacing="8">
+                        <TextBlock Text="📁" FontSize="24"/>
+                        <TextBlock Text="{x:Bind ViewModel.ActiveProjects}" FontSize="30" FontWeight="Bold" Foreground="#34D399"/>
+                        <TextBlock Text="Active Projects" Foreground="#9CA3AF" FontSize="13"/>
+                    </StackPanel>
+                </Border>
+
+                <Border Grid.Column="2" Background="#1F2937" CornerRadius="12" Padding="20">
+                    <StackPanel Spacing="8">
+                        <TextBlock Text="💰" FontSize="24"/>
+                        <TextBlock Text="{x:Bind ViewModel.RevenueText}" FontSize="30" FontWeight="Bold" Foreground="#F59E0B"/>
+                        <TextBlock Text="Revenue" Foreground="#9CA3AF" FontSize="13"/>
+                    </StackPanel>
+                </Border>
+
+                <Border Grid.Column="3" Background="#1F2937" CornerRadius="12" Padding="20">
+                    <StackPanel Spacing="8">
+                        <TextBlock Text="🐛" FontSize="24"/>
+                        <TextBlock Text="{x:Bind ViewModel.OpenIssues}" FontSize="30" FontWeight="Bold" Foreground="#F87171"/>
+                        <TextBlock Text="Open Issues" Foreground="#9CA3AF" FontSize="13"/>
+                    </StackPanel>
+                </Border>
+            </Grid>
+
+            <!-- Recent Activity -->
+            <Border Background="#1F2937" CornerRadius="12" Padding="20">
+                <StackPanel Spacing="16">
+                    <TextBlock Text="Recent Activity" FontSize="18" FontWeight="SemiBold"/>
+                    <ItemsControl ItemsSource="{x:Bind ViewModel.RecentActivities}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate x:DataType="models:ActivityItem">
+                                <Border Background="#111827" CornerRadius="8" Padding="12" Margin="0,0,0,6">
+                                    <Grid ColumnSpacing="12">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="30"/>
+                                            <ColumnDefinition Width="50"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Grid.Column="0" Text="{x:Bind TypeIcon}" FontSize="16" VerticalAlignment="Center"/>
+                                        <TextBlock Grid.Column="1" Text="{x:Bind Time}" Foreground="#6B7280" VerticalAlignment="Center" FontSize="13"/>
+                                        <TextBlock Grid.Column="2" Text="{x:Bind Action}" VerticalAlignment="Center"/>
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </StackPanel>
+            </Border>
+
+        </StackPanel>
+    </ScrollViewer>
+</Page>

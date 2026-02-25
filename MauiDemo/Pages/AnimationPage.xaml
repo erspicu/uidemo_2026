@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MauiDemo.Pages.AnimationPage"
+             BackgroundColor="#0F172A"
+             Title="Animation">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="32,28" Spacing="20">
+
+            <!-- Header -->
+            <VerticalStackLayout Spacing="4" Margin="0,0,0,8">
+                <Label Text="Animation" FontSize="28" FontAttributes="Bold" TextColor="#F1F5F9"/>
+                <Label Text="MAUI animation API and built-in animated controls"
+                       FontSize="14" TextColor="#64748B"/>
+            </VerticalStackLayout>
+
+            <!-- Row 1: Loaders -->
+            <Grid ColumnDefinitions="*,*,*" ColumnSpacing="12">
+
+                <!-- Spinning Indicators -->
+                <Border Grid.Column="0" BackgroundColor="#1E293B" StrokeShape="RoundRectangle 12" Padding="24">
+                    <VerticalStackLayout Spacing="16">
+                        <Label Text="ACTIVITY INDICATORS" FontSize="12" FontAttributes="Bold"
+                               TextColor="#94A3B8"/>
+                        <HorizontalStackLayout Spacing="24" HorizontalOptions="Center">
+                            <ActivityIndicator IsRunning="True" Color="#A78BFA" WidthRequest="36" HeightRequest="36"/>
+                            <ActivityIndicator IsRunning="True" Color="#34D399" WidthRequest="36" HeightRequest="36"/>
+                            <ActivityIndicator IsRunning="True" Color="#F59E0B" WidthRequest="36" HeightRequest="36"/>
+                        </HorizontalStackLayout>
+                        <Label Text="Built-in spinner control" FontSize="11"
+                               TextColor="#475569" HorizontalOptions="Center"/>
+                    </VerticalStackLayout>
+                </Border>
+
+                <!-- Progress animated -->
+                <Border Grid.Column="1" BackgroundColor="#1E293B" StrokeShape="RoundRectangle 12" Padding="24">
+                    <VerticalStackLayout Spacing="16">
+                        <Label Text="ANIMATED PROGRESS" FontSize="12" FontAttributes="Bold"
+                               TextColor="#94A3B8"/>
+                        <VerticalStackLayout Spacing="8">
+                            <ProgressBar x:Name="Bar1" ProgressColor="#A78BFA"
+                                         BackgroundColor="#334155" Progress="0.7"/>
+                            <ProgressBar x:Name="Bar2" ProgressColor="#34D399"
+                                         BackgroundColor="#334155" Progress="0.45"/>
+                            <ProgressBar x:Name="Bar3" ProgressColor="#F59E0B"
+                                         BackgroundColor="#334155" Progress="0.85"/>
+                            <ProgressBar x:Name="Bar4" ProgressColor="#F87171"
+                                         BackgroundColor="#334155" Progress="0.3"/>
+                        </VerticalStackLayout>
+                        <Label Text="Multi-color progress bars" FontSize="11"
+                               TextColor="#475569" HorizontalOptions="Center"/>
+                    </VerticalStackLayout>
+                </Border>
+
+                <!-- Pulse with code animation -->
+                <Border Grid.Column="2" BackgroundColor="#1E293B" StrokeShape="RoundRectangle 12" Padding="24">
+                    <VerticalStackLayout Spacing="16">
+                        <Label Text="PULSE (CODE ANIMATION)" FontSize="12" FontAttributes="Bold"
+                               TextColor="#94A3B8"/>
+                        <Grid HorizontalOptions="Center" VerticalOptions="Center">
+                            <Ellipse x:Name="PulseRing"
+                                     WidthRequest="80" HeightRequest="80"
+                                     Fill="#7C3AED" Opacity="0.3"/>
+                            <Ellipse x:Name="PulseCore"
+                                     WidthRequest="52" HeightRequest="52"
+                                     Fill="#A78BFA"
+                                     HorizontalOptions="Center" VerticalOptions="Center"/>
+                            <Label Text="●" FontSize="10" TextColor="White"
+                                   HorizontalOptions="Center" VerticalOptions="Center"/>
+                        </Grid>
+                        <Label Text="C# ViewLifecycle animation" FontSize="11"
+                               TextColor="#475569" HorizontalOptions="Center"/>
+                    </VerticalStackLayout>
+                </Border>
+
+            </Grid>
+
+            <!-- Row 2: Interactive Progress -->
+            <Grid ColumnDefinitions="*,220" ColumnSpacing="12">
+
+                <!-- Interactive Progress Counter -->
+                <Border Grid.Column="0" BackgroundColor="#1E293B" StrokeShape="RoundRectangle 12" Padding="24">
+                    <VerticalStackLayout Spacing="14">
+                        <Label Text="PROGRESS ANIMATION" FontSize="13" FontAttributes="Bold"
+                               TextColor="#94A3B8"/>
+                        <Border BackgroundColor="#0F172A" StrokeShape="RoundRectangle 12" Padding="0,20">
+                            <VerticalStackLayout HorizontalOptions="Center" Spacing="4">
+                                <Label x:Name="CounterLabel" Text="0%"
+                                       FontSize="48" FontAttributes="Bold"
+                                       TextColor="#A78BFA" HorizontalOptions="Center"/>
+                                <Label Text="complete" FontSize="12" TextColor="#475569"
+                                       HorizontalOptions="Center"/>
+                            </VerticalStackLayout>
+                        </Border>
+                        <ProgressBar x:Name="MainProgressBar"
+                                     ProgressColor="#7C3AED" BackgroundColor="#334155"
+                                     Progress="0" HeightRequest="12"/>
+                        <HorizontalStackLayout Spacing="8">
+                            <Button x:Name="RunBtn" Text="▶ Run"
+                                    BackgroundColor="#7C3AED" TextColor="White"
+                                    CornerRadius="8" Padding="16,8"
+                                    Clicked="OnRunClicked"/>
+                            <Button x:Name="StopBtn" Text="⏹ Stop"
+                                    BackgroundColor="#DC2626" TextColor="White"
+                                    CornerRadius="8" Padding="16,8" IsEnabled="False"
+                                    Clicked="OnStopClicked"/>
+                            <Button Text="↺ Reset"
+                                    BackgroundColor="#334155" TextColor="#CBD5E1"
+                                    CornerRadius="8" Padding="16,8"
+                                    Clicked="OnResetClicked"/>
+                        </HorizontalStackLayout>
+                    </VerticalStackLayout>
+                </Border>
+
+                <!-- Animated scale boxes -->
+                <Border Grid.Column="1" BackgroundColor="#1E293B" StrokeShape="RoundRectangle 12" Padding="24">
+                    <VerticalStackLayout Spacing="16">
+                        <Label Text="WAVE BARS" FontSize="13" FontAttributes="Bold"
+                               TextColor="#94A3B8"/>
+                        <HorizontalStackLayout Spacing="6" HorizontalOptions="Center"
+                                               HeightRequest="80" VerticalOptions="Center">
+                            <BoxView x:Name="W1" WidthRequest="16" HeightRequest="40"
+                                     BackgroundColor="#A78BFA" CornerRadius="4"/>
+                            <BoxView x:Name="W2" WidthRequest="16" HeightRequest="65"
+                                     BackgroundColor="#818CF8" CornerRadius="4"/>
+                            <BoxView x:Name="W3" WidthRequest="16" HeightRequest="30"
+                                     BackgroundColor="#60A5FA" CornerRadius="4"/>
+                            <BoxView x:Name="W4" WidthRequest="16" HeightRequest="75"
+                                     BackgroundColor="#34D399" CornerRadius="4"/>
+                            <BoxView x:Name="W5" WidthRequest="16" HeightRequest="50"
+                                     BackgroundColor="#FBBF24" CornerRadius="4"/>
+                            <BoxView x:Name="W6" WidthRequest="16" HeightRequest="60"
+                                     BackgroundColor="#F87171" CornerRadius="4"/>
+                            <BoxView x:Name="W7" WidthRequest="16" HeightRequest="35"
+                                     BackgroundColor="#E879F9" CornerRadius="4"/>
+                        </HorizontalStackLayout>
+                        <Label Text="Code-driven opacity pulse" FontSize="11"
+                               TextColor="#475569" HorizontalOptions="Center"/>
+                    </VerticalStackLayout>
+                </Border>
+
+            </Grid>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

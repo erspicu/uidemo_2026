@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:MauiDemo.ViewModels"
+             xmlns:models="clr-namespace:MauiDemo.Models"
+             x:Class="MauiDemo.Pages.DashboardPage"
+             BackgroundColor="#0F172A"
+             Title="Dashboard">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="32,28" Spacing="24">
+
+            <!-- Header -->
+            <VerticalStackLayout Spacing="4">
+                <Label Text="Dashboard" FontSize="28" FontAttributes="Bold" TextColor="#F1F5F9"/>
+                <Label Text="Overview of key metrics and recent activity"
+                       FontSize="14" TextColor="#64748B"/>
+            </VerticalStackLayout>
+
+            <!-- Stat Cards -->
+            <Grid ColumnDefinitions="*,*,*,*" ColumnSpacing="12">
+
+                <Border Grid.Column="0" BackgroundColor="#1E293B" StrokeShape="RoundRectangle 12" Padding="20">
+                    <VerticalStackLayout Spacing="8">
+                        <HorizontalStackLayout Spacing="8">
+                            <Label Text="👥" FontSize="22"/>
+                            <Label Text="Total Users" FontSize="12" TextColor="#94A3B8" VerticalOptions="Center"/>
+                        </HorizontalStackLayout>
+                        <Label Text="1,248" FontSize="34" FontAttributes="Bold" TextColor="#A78BFA"/>
+                        <Label Text="↑ 12% from last month" FontSize="12" TextColor="#22D3EE"/>
+                    </VerticalStackLayout>
+                </Border>
+
+                <Border Grid.Column="1" BackgroundColor="#1E293B" StrokeShape="RoundRectangle 12" Padding="20">
+                    <VerticalStackLayout Spacing="8">
+                        <HorizontalStackLayout Spacing="8">
+                            <Label Text="⚡" FontSize="22"/>
+                            <Label Text="Active Sessions" FontSize="12" TextColor="#94A3B8" VerticalOptions="Center"/>
+                        </HorizontalStackLayout>
+                        <Label Text="342" FontSize="34" FontAttributes="Bold" TextColor="#34D399"/>
+                        <Label Text="↑ 5% from yesterday" FontSize="12" TextColor="#22D3EE"/>
+                    </VerticalStackLayout>
+                </Border>
+
+                <Border Grid.Column="2" BackgroundColor="#1E293B" StrokeShape="RoundRectangle 12" Padding="20">
+                    <VerticalStackLayout Spacing="8">
+                        <HorizontalStackLayout Spacing="8">
+                            <Label Text="💰" FontSize="22"/>
+                            <Label Text="Revenue" FontSize="12" TextColor="#94A3B8" VerticalOptions="Center"/>
+                        </HorizontalStackLayout>
+                        <Label Text="$89,420" FontSize="34" FontAttributes="Bold" TextColor="#F59E0B"/>
+                        <Label Text="↑ 8% from last week" FontSize="12" TextColor="#22D3EE"/>
+                    </VerticalStackLayout>
+                </Border>
+
+                <Border Grid.Column="3" BackgroundColor="#1E293B" StrokeShape="RoundRectangle 12" Padding="20">
+                    <VerticalStackLayout Spacing="8">
+                        <HorizontalStackLayout Spacing="8">
+                            <Label Text="🐛" FontSize="22"/>
+                            <Label Text="Open Issues" FontSize="12" TextColor="#94A3B8" VerticalOptions="Center"/>
+                        </HorizontalStackLayout>
+                        <Label Text="7" FontSize="34" FontAttributes="Bold" TextColor="#F87171"/>
+                        <Label Text="↓ 3 resolved today" FontSize="12" TextColor="#22D3EE"/>
+                    </VerticalStackLayout>
+                </Border>
+
+            </Grid>
+
+            <!-- Recent Activity -->
+            <Border BackgroundColor="#1E293B" StrokeShape="RoundRectangle 12" Padding="0">
+                <VerticalStackLayout>
+                    <Border Padding="20,16" BackgroundColor="Transparent"
+                            StrokeShape="RoundRectangle 0"
+                            Stroke="#334155" StrokeThickness="0">
+                        <Label Text="Recent Activity" FontSize="16" FontAttributes="Bold" TextColor="#F1F5F9"/>
+                    </Border>
+                    <CollectionView x:Name="ActivityList"
+                                    ItemsSource="{Binding RecentActivity}"
+                                    SelectionMode="None">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate x:DataType="models:ActivityItem">
+                                <Border Padding="20,12" BackgroundColor="Transparent"
+                                        StrokeShape="RoundRectangle 0" Stroke="#1E293B"
+                                        StrokeThickness="0">
+                                    <Grid ColumnDefinitions="56,30,*">
+                                        <Label Grid.Column="0" Text="{Binding Time}"
+                                               FontSize="12" TextColor="#475569"
+                                               FontFamily="Consolas" VerticalOptions="Center"/>
+                                        <Label Grid.Column="1" Text="{Binding TypeIcon}"
+                                               FontSize="15" HorizontalOptions="Center"
+                                               VerticalOptions="Center"/>
+                                        <Label Grid.Column="2" Text="{Binding Action}"
+                                               FontSize="13" TextColor="#CBD5E1"
+                                               VerticalOptions="Center"/>
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </VerticalStackLayout>
+            </Border>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
