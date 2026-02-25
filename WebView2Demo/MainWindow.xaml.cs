@@ -21,7 +21,18 @@ public partial class MainWindow : Window
 
     private void OnMessage(object? sender, CoreWebView2WebMessageReceivedEventArgs e)
     {
-        var doc = JsonSerializer.Deserialize<JsonElement>(e.WebMessageAsJson);
+        JsonElement doc;
+        try
+        {
+            // JS sends postMessage(JSON.stringify({...})) — TryGetWebMessageAsString()
+            // returns the raw string; if it throws (non-string msg), fall back to WebMessageAsJson
+            string raw;
+            try { raw = e.TryGetWebMessageAsString(); }
+            catch { raw = e.WebMessageAsJson; }
+            doc = JsonSerializer.Deserialize<JsonElement>(raw);
+        }
+        catch { return; }
+
         var cmd = doc.GetProperty("cmd").GetString();
 
         string resp = cmd switch
