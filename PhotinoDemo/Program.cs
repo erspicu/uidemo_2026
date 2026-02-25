@@ -1,13 +1,12 @@
 using System.Text.Json;
 using PhotinoNET;
 
-var htmlPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "wwwroot", "index.html");
-
 var window = new PhotinoWindow()
     .SetTitle("🟢 Photino Demo")
     .SetSize(1200, 720)
     .Center()
     .SetResizable(true)
+    .SetDevToolsEnabled(true)
     .RegisterWebMessageReceivedHandler((sender, msg) =>
     {
         JsonElement doc;
@@ -53,5 +52,5 @@ var window = new PhotinoWindow()
         (sender as PhotinoWindow)?.SendWebMessage(resp);
     });
 
-window.Load(htmlPath);
+window.Load("wwwroot/index.html");
 window.WaitForClose();

@@ -199,12 +199,16 @@
       </tr>`).join('');
     }
 
-    // Photino JS Bridge
-    window.external.receiveMessage(msg => {
-      const d = JSON.parse(msg);
-      if (d.cmd === 'systemInfo') fillSystemInfo(d);
-      else if (d.cmd === 'tableData') fillTable(d.rows);
-      else if (d.cmd === 'pong') document.getElementById('btn-out').textContent = `[C# @ ${d.time}] Pong: "${d.value}"`;
+    // Photino JS Bridge - set up after DOM ready
+    document.addEventListener('DOMContentLoaded', function() {
+      if (window.external && typeof window.external.receiveMessage === 'function') {
+        window.external.receiveMessage(msg => {
+          const d = JSON.parse(msg);
+          if (d.cmd === 'systemInfo') fillSystemInfo(d);
+          else if (d.cmd === 'tableData') fillTable(d.rows);
+          else if (d.cmd === 'pong') document.getElementById('btn-out').textContent = `[C# @ ${d.time}] Pong: "${d.value}"`;
+        });
+      }
     });
 
     function loadSystemInfo() {
