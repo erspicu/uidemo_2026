@@ -1,0 +1,18 @@
+@inject NavigationManager Nav
+
+<button @onclick="Navigate"
+    style="display:flex;align-items:center;gap:12px;width:calc(100% - 12px);margin:2px 6px;padding:10px 12px;background:@(IsActive ? "#4C1D95" : "transparent");border:none;border-radius:8px;color:#D1D5DB;font-size:14px;font-weight:500;cursor:pointer;">
+    <span style="font-size:18px;">@Icon</span>
+    <span>@Label</span>
+</button>
+
+@code {
+    [Parameter] public string Href { get; set; } = "/";
+    [Parameter] public string Icon { get; set; } = "";
+    [Parameter] public string Label { get; set; } = "";
+
+    bool IsActive => Href == "/" ? Nav.Uri.EndsWith("/") || Nav.Uri.EndsWith("/index")
+        : Nav.Uri.Contains(Href.TrimStart('/'));
+
+    void Navigate() => Nav.NavigateTo(Href);
+}

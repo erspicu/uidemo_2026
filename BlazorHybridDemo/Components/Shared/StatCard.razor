@@ -1,0 +1,12 @@
+<div style="background:#1E293B;border:1px solid #334155;border-radius:12px;padding:20px;">
+    <div style="font-size:28px;margin-bottom:12px;">@Icon</div>
+    <div style="font-size:12px;color:#6B7280;text-transform:uppercase;letter-spacing:.05em;">@Label</div>
+    <div style="font-size:22px;font-weight:700;margin-top:4px;">@Value</div>
+    <div style="font-size:12px;color:#6B7280;margin-top:4px;">@Sub</div>
+</div>
+@code {
+    [Parameter] public string Icon { get; set; } = "";
+    [Parameter] public string Label { get; set; } = "";
+    [Parameter] public string Value { get; set; } = "";
+    [Parameter] public string Sub { get; set; } = "";
+}

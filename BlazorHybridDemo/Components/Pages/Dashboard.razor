@@ -1,0 +1,30 @@
+@page "/"
+@inject AppService Svc
+
+<h1 style="font-size:24px;font-weight:700;margin-bottom:8px;">🏠 Dashboard</h1>
+<p style="font-size:14px;color:#6B7280;margin-bottom:28px;">系統資訊直接由 C# 注入，無需序列化</p>
+
+<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px;margin-bottom:24px;">
+    <StatCard Icon="⚙️" Label="CPU Cores" Value="@Svc.GetCpuCount().ToString()" Sub="邏輯處理器" />
+    <StatCard Icon="💻" Label="Machine" Value="@Svc.GetMachineName()" Sub="主機名稱" />
+    <StatCard Icon="🔷" Label=".NET Version" Value="@Svc.GetDotNetVersion()" Sub="執行環境" />
+    <StatCard Icon="🕐" Label="Current Time" Value="@_time" Sub="伺服器時間" />
+</div>
+
+<div style="background:#1E293B;border:1px solid #334155;border-radius:12px;padding:20px;margin-bottom:16px;">
+    <h3 style="font-size:14px;font-weight:600;color:#D1D5DB;margin-bottom:12px;">系統資訊</h3>
+    <InfoRow Label="作業系統" Value="@Svc.GetOsVersion()" />
+    <InfoRow Label="CPU 核心數" Value="@Svc.GetCpuCount().ToString()" />
+    <InfoRow Label="主機名稱" Value="@Svc.GetMachineName()" />
+    <InfoRow Label=".NET 版本" Value="@Svc.GetDotNetVersion()" />
+</div>
+
+<div style="background:#1E293B;border:1px solid #334155;border-radius:12px;padding:20px;">
+    <h3 style="font-size:14px;font-weight:600;color:#D1D5DB;margin-bottom:12px;">🔷 Blazor Hybrid 通訊方式</h3>
+    <p style="font-size:13px;color:#9CA3AF;line-height:1.6;">Blazor Hybrid 在同一個 Process 內直接 <code style="background:#0F172A;padding:2px 6px;border-radius:4px;color:#A78BFA;">@inject</code> C# 服務，完全不需要序列化或訊息傳遞。任何 C# 方法可以直接在 Razor 元件中同步或非同步呼叫。</p>
+</div>
+
+@code {
+    string _time = "";
+    protected override void OnInitialized() => _time = Svc.GetCurrentTime();
+}

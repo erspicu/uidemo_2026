@@ -1,0 +1,12 @@
+<Window x:Class="CefSharpDemo.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:cef="clr-namespace:CefSharp.Wpf;assembly=CefSharp.Wpf"
+        Title="🔵 CefSharp Demo" Width="1200" Height="720"
+        Background="#0F172A"
+        WindowStartupLocation="CenterScreen"
+        Loaded="Window_Loaded">
+    <Grid>
+        <cef:ChromiumWebBrowser x:Name="browser" />
+    </Grid>
+</Window>

@@ -1,0 +1,13 @@
+@page "/animation"
+
+<h1 style="font-size:24px;font-weight:700;margin-bottom:8px;">✨ Animation</h1>
+<p style="font-size:14px;color:#6B7280;margin-bottom:28px;">CSS 動畫展示 — Blazor 不干預，純 HTML/CSS</p>
+
+<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px;">
+    <AnimCard Label="Spinner" Html="<div class='spinner'></div>" />
+    <AnimCard Label="Pulse" Html="<div class='pulser'></div>" />
+    <AnimCard Label="Bounce" Html="<div class='bouncer'></div>" />
+    <AnimCard Label="Color Cycle" Html="<div class='color-box'></div>" />
+    <AnimCard Label="Fade" Html="<div class='fade-box'></div>" />
+    <AnimCard Label="Progress" Html="<div class='prog-track'><div class='prog-bar'></div></div>" />
+</div>

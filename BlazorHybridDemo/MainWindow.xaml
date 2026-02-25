@@ -1,0 +1,16 @@
+<Window x:Class="BlazorHybridDemo.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:blazor="clr-namespace:Microsoft.AspNetCore.Components.WebView.Wpf;assembly=Microsoft.AspNetCore.Components.WebView.Wpf"
+        Title="🔷 Blazor Hybrid Demo" Width="1200" Height="720"
+        Background="#0F172A"
+        WindowStartupLocation="CenterScreen">
+    <Grid>
+        <blazor:BlazorWebView HostPage="wwwroot/index.html" Services="{DynamicResource services}">
+            <blazor:BlazorWebView.RootComponents>
+                <blazor:RootComponent Selector="#app" ComponentType="{x:Type local:Components.App}"
+                    xmlns:local="clr-namespace:BlazorHybridDemo"/>
+            </blazor:BlazorWebView.RootComponents>
+        </blazor:BlazorWebView>
+    </Grid>
+</Window>

@@ -1,0 +1,54 @@
+@page "/controls"
+
+<h1 style="font-size:24px;font-weight:700;margin-bottom:8px;">🎛️ Controls</h1>
+<p style="font-size:14px;color:#6B7280;margin-bottom:28px;">互動控制項展示 — C# 直接處理事件</p>
+
+<div style="background:#1E293B;border:1px solid #334155;border-radius:12px;padding:20px;margin-bottom:16px;">
+    <h3 style="font-size:13px;font-weight:600;color:#6B7280;text-transform:uppercase;margin-bottom:16px;">BUTTONS</h3>
+    <div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:12px;">
+        <button @onclick="OnPrimary" style="padding:8px 20px;background:#8B5CF6;border:none;border-radius:8px;color:#fff;cursor:pointer;font-size:14px;">Primary</button>
+        <button @onclick="OnSecondary" style="padding:8px 20px;background:#1F2937;border:none;border-radius:8px;color:#D1D5DB;cursor:pointer;font-size:14px;">Secondary</button>
+        <button @onclick="OnSuccess" style="padding:8px 20px;background:#065F46;border:none;border-radius:8px;color:#6EE7B7;cursor:pointer;font-size:14px;">Success</button>
+        <button @onclick="OnDanger" style="padding:8px 20px;background:#7F1D1D;border:none;border-radius:8px;color:#FCA5A5;cursor:pointer;font-size:14px;">Danger</button>
+    </div>
+    <div style="background:#0F172A;border:1px solid #334155;border-radius:8px;padding:12px 16px;font-size:13px;color:#6EE7B7;font-family:Consolas,monospace;">@_btnOutput</div>
+</div>
+
+<div style="background:#1E293B;border:1px solid #334155;border-radius:12px;padding:20px;margin-bottom:16px;">
+    <h3 style="font-size:13px;font-weight:600;color:#6B7280;text-transform:uppercase;margin-bottom:16px;">TEXT INPUT</h3>
+    <div style="display:flex;gap:12px;align-items:center;margin-bottom:12px;">
+        <input @bind="_inputText" @bind:event="oninput" placeholder="輸入文字..."
+               style="background:#0F172A;border:1px solid #334155;border-radius:8px;padding:8px 12px;color:#F9FAFB;font-size:13px;min-width:200px;" />
+        <button @onclick="EchoInput" style="padding:8px 20px;background:#8B5CF6;border:none;border-radius:8px;color:#fff;cursor:pointer;font-size:14px;">Echo to C#</button>
+    </div>
+    <div style="background:#0F172A;border:1px solid #334155;border-radius:8px;padding:12px 16px;font-size:13px;color:#6EE7B7;font-family:Consolas,monospace;">@_echoOutput</div>
+</div>
+
+<div style="background:#1E293B;border:1px solid #334155;border-radius:12px;padding:20px;margin-bottom:16px;">
+    <h3 style="font-size:13px;font-weight:600;color:#6B7280;text-transform:uppercase;margin-bottom:16px;">SLIDER</h3>
+    <input type="range" min="0" max="100" @bind="_sliderVal" @bind:event="oninput"
+           style="width:280px;accent-color:#8B5CF6;" />
+    <div style="font-size:13px;color:#9CA3AF;margin-top:8px;">值: @_sliderVal  (C# 即時計算: @(_sliderVal * _sliderVal))</div>
+</div>
+
+<div style="background:#1E293B;border:1px solid #334155;border-radius:12px;padding:20px;">
+    <h3 style="font-size:13px;font-weight:600;color:#6B7280;text-transform:uppercase;margin-bottom:16px;">TOGGLE</h3>
+    <label style="display:flex;align-items:center;gap:12px;cursor:pointer;">
+        <input type="checkbox" @bind="_toggle" style="width:18px;height:18px;accent-color:#8B5CF6;" />
+        <span style="font-size:14px;color:#D1D5DB;">@(_toggle ? "✅ 已啟用" : "⬜ 已停用")</span>
+    </label>
+</div>
+
+@code {
+    string _btnOutput = "點擊按鈕...";
+    string _inputText = "";
+    string _echoOutput = "等待輸入...";
+    int _sliderVal = 42;
+    bool _toggle;
+
+    void OnPrimary() => _btnOutput = $"[{DateTime.Now:HH:mm:ss}] C# 收到: Primary clicked";
+    void OnSecondary() => _btnOutput = $"[{DateTime.Now:HH:mm:ss}] C# 收到: Secondary clicked";
+    void OnSuccess() => _btnOutput = $"[{DateTime.Now:HH:mm:ss}] C# 收到: Success clicked";
+    void OnDanger() => _btnOutput = $"[{DateTime.Now:HH:mm:ss}] C# 收到: Danger clicked ⚠️";
+    void EchoInput() => _echoOutput = $"[C# echo] \"{_inputText}\" — 長度: {_inputText.Length} 字元";
+}
