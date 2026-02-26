@@ -210,11 +210,14 @@ function Get-OutputStats([string]$dir) {
 Write-Header "Building All Demos  [Config: $Config]"
 New-Item $ReleaseDir -ItemType Directory -Force | Out-Null
 
-$results   = [System.Collections.Generic.List[hashtable]]::new()
+$results    = [System.Collections.Generic.List[hashtable]]::new()
 $totalStart = [System.Diagnostics.Stopwatch]::StartNew()
+$total      = $demos.Count
+$idx        = 0
 
 foreach ($d in $demos) {
-    Write-Step $d.Name
+    $idx++
+    Write-Step "[$idx/$total] $($d.Name)"
 
     $outDir  = Join-Path $ReleaseDir $d.Name
     $csproj  = Join-Path $Root $d.Csproj
