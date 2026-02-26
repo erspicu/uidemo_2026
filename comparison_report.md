@@ -176,6 +176,104 @@ demo1/
 
 ---
 
+## 補充：UWP 深度說明
+
+### U1. 什麼是 UWP？
+
+**UWP（Universal Windows Platform）** 是微軟於 Windows 10（2015）推出的應用程式平台，目標是「一份程式碼，執行在所有 Windows 裝置」。其核心是 **WinRT（Windows Runtime）** API，以 `Windows.UI.Xaml.*` 為 UI 框架。
+
+```
+歷史脈絡：
+WinForms (2002) → WPF (2006) → Silverlight (2007) → WinRT/Windows 8 (2012)
+→ UWP/Windows 10 (2015) → WinUI 3/Windows App SDK (2021) ← 現在的主流
+```
+
+---
+
+### U2. 支援裝置家族（Device Families）
+
+| 裝置 | 支援狀態 | 說明 |
+|------|:--------:|------|
+| **Windows 11 / 10 桌面** | ✅ 完整 | 主要開發目標 |
+| **Xbox One / Series X\|S** | ✅ 完整 | Xbox App / 遊戲幾乎全是 UWP |
+| **HoloLens 1 / 2** | ✅ 完整 | MR（混合實境）應用 |
+| **Surface Hub** | ✅ 完整 | 大型互動螢幕 |
+| **Windows IoT Core** | ✅ 支援 | 嵌入式裝置 |
+| **Windows Phone 10** | ⚰️ 已終止 | 2019 年停止支援 |
+| **iOS / Android / macOS** | ❌ 不支援 | 從未支援 |
+
+在 `Package.appxmanifest` 中以 `TargetDeviceFamily` 控制目標裝置：
+
+```xml
+<!-- 部署到所有 Windows 裝置（含 Xbox） -->
+<TargetDeviceFamily Name="Windows.Universal" MinVersion="10.0.17763.0" MaxVersionTested="10.0.19041.0"/>
+
+<!-- 僅限桌面 -->
+<TargetDeviceFamily Name="Windows.Desktop" MinVersion="10.0.17763.0" MaxVersionTested="10.0.19041.0"/>
+
+<!-- 僅限 Xbox -->
+<TargetDeviceFamily Name="Windows.Xbox" MinVersion="10.0.0.0" MaxVersionTested="10.0.0.0"/>
+```
+
+---
+
+### U3. Runtime 內建於 Windows
+
+UWP Runtime 是 **Windows OS 的一部分**，不需要使用者另行安裝：
+
+| Runtime | 內建於 Windows | 需另裝 |
+|---------|:--------------:|:------:|
+| UWP Runtime (`Windows.UI.Xaml`) | ✅ Windows 10/11 內建 | — |
+| WinUI 3 (`Windows App Runtime`) | ❌ | ✅ 需安裝 |
+| .NET 8 Runtime | ❌ | ✅ 需安裝 |
+| .NET Framework 4.8 | ✅ Windows 11 內建 | — |
+
+> Windows 11 自身的許多內建 App（計算機、照片、時鐘、設定）都是 UWP，因此 Runtime 永遠不會從 Windows 中移除。
+
+---
+
+### U4. 部署模型（MSIX 強制）
+
+UWP App **必須以 MSIX 套件部署**，無法直接執行 `.exe`：
+
+```
+傳統 Win32 / WPF / WinForms：
+  YourApp.exe ← 直接雙擊執行 ✅
+
+UWP：
+  YourApp.msix → 安裝 → AppContainer 沙箱啟動 ✅
+  YourApp.exe ← 直接雙擊 ❌（會報錯）
+```
+
+**AppContainer 沙箱特性：**
+- App 資料隔離在 `%LOCALAPPDATA%\Packages\<PackageName>\`
+- 存取檔案系統、攝影機、麥克風等需在 manifest 宣告 `Capability`
+- 解安裝時完全乾淨，不留任何殘留
+
+**測試安裝 MSIX 的前置步驟：**
+1. 開啟「設定 → 系統 → 開發人員模式」
+2. 雙擊 `.msix` 安裝（或使用 `Add-AppxPackage` PowerShell 指令）
+
+---
+
+### U5. UWP vs WinUI 3 比較
+
+| 項目 | UWP | WinUI 3 |
+|------|-----|---------|
+| XAML 命名空間 | `Windows.UI.Xaml.*` | `Microsoft.UI.Xaml.*` |
+| 根視窗 | `Page`（Frame 導覽） | `Window` |
+| 部署 | MSIX 強制 | MSIX 或直接 .exe（`WindowsPackageType=None`） |
+| Runtime | OS 內建 | 需安裝 Windows App Runtime |
+| 新控制項 | ❌ 停止新增 | ✅ 持續更新（WinUI Gallery） |
+| 跨裝置 | Xbox / HoloLens / IoT | 僅桌面 |
+| csproj 格式 | 傳統非 SDK-style | SDK-style |
+| 維護狀態 | 維護模式（不再新增功能） | ✅ 微軟主推 |
+| .NET 版本 | `.NETCore.UniversalWindowsPlatform` 6.x | .NET 8 / 10 |
+
+> **結論**：新專案建議直接用 WinUI 3。UWP 的主要存在價值在於 **Xbox / HoloLens 開發**，以及既有 UWP 應用的維護。
+
+---
+
 ## 補充：Web UI + C# 橋接框架評估
 
 > 參考研究筆記：`web-ui-csharp-study.md`  
