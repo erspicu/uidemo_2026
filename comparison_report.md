@@ -13,6 +13,7 @@
 | **WinForms (.NET Fx 4.8)** | ~0 MB | 3 | 25 KB | 完全依賴系統 .NET Framework |
 | **WinForms (.NET 8)** | 0.2 MB | 5 | 148 KB | Framework-dependent，依賴系統 .NET 8 Runtime |
 | **WPF (.NET 8)** | 0.2 MB | 5 | 148 KB | Framework-dependent，依賴系統 .NET 8 Runtime |
+| **UWP** | 0.3 MB / MSIX 1.9 MB | 16 | — | 輸出為 .msix 套件；不可直接執行 .exe，需透過套件安裝 |
 | **WinUI 3 (.NET 10)** | 38.9 MB | 66 | 160 KB | 含 WindowsAppSDK 部分 Runtime |
 | **Uno Platform (.NET 8)** | 89.7 MB | 292 | 80 KB | 含 WinAppSDK + Uno Runtime |
 | **MAUI (.NET 10)** | 104.1 MB | 419 | 281 KB | 含大量平台工具與圖片處理資源 |
@@ -29,6 +30,7 @@
 | WinForms (.NET Fx 4.8) | 0（全靠 GAC / 系統 DLL） |
 | WinForms (.NET 8) | 0（WinForms 內建於 .NET Runtime） |
 | WPF (.NET 8) | 0（WPF 內建於 .NET Runtime） |
+| UWP | 23（Microsoft.NETCore.UniversalWindowsPlatform 遞移依賴） |
 | WinUI 3 | 14 |
 | MAUI | 26 |
 | Uno Platform | 20 |
@@ -43,6 +45,7 @@
 | WinForms (.NET Fx 4.8) | ~1.1 s |
 | WinForms (.NET 8) | ~1.6 s |
 | WPF (.NET 8) | ~2.2 s |
+| UWP | ~5.5 s |
 | Avalonia (.NET 8) | ~6.2 s |
 | MAUI (.NET 10) | ~7.7 s |
 | WinUI 3 (.NET 10) | ~9.3 s |
@@ -55,6 +58,7 @@
 | WinForms (.NET Fx 4.8) | 2–5 s |
 | WinForms (.NET 8) | 3–5 s |
 | WPF (.NET 8) | 3–8 s |
+| UWP | 1–3 min（含 .NET Native 編譯 + MSIX 打包） |
 | Avalonia (.NET 8) | 30–60 s |
 | MAUI (.NET 10) | 10–20 min（含 MSIX 打包、圖片 resizer） |
 | WinUI 3 (.NET 10) | 3–5 min（首次需下載 WindowsAppSDK） |
@@ -69,6 +73,7 @@
 | WinForms (.NET Fx 4.8) | ⚡ 極快（< 0.5 s） | 直接使用系統已載入的 CLR |
 | WinForms (.NET 8) | ⚡ 極快（< 0.5 s） | .NET 8 JIT 啟動快 |
 | WPF (.NET 8) | ⚡ 快（< 1 s） | XAML 初始化略有額外開銷 |
+| UWP | 🟡 中等（1–2 s） | AppContainer 啟動初始化；Release .NET Native 編譯後更快 |
 | WinUI 3 (.NET 10) | 🟡 中等（1–2 s） | WinAppRuntime 初始化 |
 | Avalonia (.NET 8) | 🟡 中等（1–2 s） | SkiaSharp 初始化 + GPU 準備 |
 | MAUI (.NET 10) | 🔴 較慢（2–4 s） | 多層 Handler 架構初始化 |
@@ -85,6 +90,7 @@
 | WinForms (.NET Fx 4.8) | .NET Framework 4.8（Windows 11 內建） | ❌ 不支援 |
 | WinForms (.NET 8) | .NET 8 Runtime | ✅ 支援 |
 | WPF (.NET 8) | .NET 8 Runtime | ✅ 支援 |
+| UWP | Windows 10 1809+（Runtime 內建於 OS） | N/A（Runtime 由 OS 提供，不可 Self-Contained） |
 | Avalonia (.NET 8) | 無（SkiaSharp 已內含） | ✅ 支援 |
 | MAUI (.NET 10) | .NET 10 Runtime（或 MSIX 自帶） | ✅ 支援 |
 | WinUI 3 (.NET 10) | Windows App Runtime 1.6+ | ✅ Self-Contained 可行 |
@@ -99,6 +105,7 @@
 | WinForms (.NET Fx 4.8) | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ |
 | WinForms (.NET 8) | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ |
 | WPF (.NET 8) | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ |
+| UWP | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ |
 | WinUI 3 | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ |
 | MAUI | ✅ | ✅ | ❌ | ✅ | ✅ | ❌ |
 | Avalonia | ✅ | ✅ | ✅ | ✅ | ✅ | ✅（預覽） |
@@ -113,6 +120,7 @@
 | WinForms (.NET Fx 4.8) | 🔴 極弱 | 🔴 困難（GDI+ 手繪） | 🟡 基礎 | 雙緩衝可減少閃爍，但開發繁瑣 |
 | WinForms (.NET 8) | 🔴 極弱 | 🔴 困難（GDI+ 手繪） | 🟡 基礎 | 同上，但享有 .NET 8 效能改進 |
 | WPF (.NET 8) | ✅ 完整 | ✅ 豐富（XAML Style/Template） | ✅ 豐富 | MVVM 友善，動畫流暢 |
+| UWP | ✅ 完整 | ✅ WinRT XAML Style | ✅ 豐富 | WinUI 3 的前身；API 稍舊但完整；必須打包為 MSIX 部署 |
 | WinUI 3 | ✅ 完整 | ✅ WinUI Design Language | ✅ WinUI Gallery | 與 Windows 11 UI 原生一致 |
 | MAUI | ✅ 完整 | 🟡 中等（平台差異大） | 🟡 中等 | 跨平台 Handler 造成細節不一致 |
 | Avalonia | ✅ 完整 | ✅ CSS-like Style | ✅ 豐富 | SkiaSharp 渲染，跨平台表現一致 |
@@ -127,6 +135,7 @@
 | WinForms | 動畫需手動 GDI+ 雙緩衝，否則嚴重閃爍；無原生深色模式支援 |
 | WinForms NetFx | 僅限 Windows；無 nullable 注釋；GAC 版本耦合 |
 | WPF | 僅限 Windows；XAML 語法冗長；舊版 DataGrid 效能差 |
+| UWP | 必須打包為 MSIX 才能執行（AppContainer 沙箱）；無法直接執行 .exe；不支援 SDK-style csproj，需傳統 UWP 專案格式；Microsoft 已宣布以 WinUI 3 取代；.NET Native 在 Release 模式才最佳化 |
 | WinUI 3 | 需要 Windows App Runtime；工具鏈複雜（MSBuild 路徑問題）；Debug sidebar 資源色彩覆寫需手動處理 |
 | MAUI | 首次 Build 極慢（含 MSIX + 圖片處理）；Animation 頁面在 Debug 模式可能卡頓 |
 | Avalonia | Debug 輸出含多平台 native DLL 導致體積龐大；SkiaSharp GPU 初始化略慢 |
@@ -141,6 +150,7 @@
 | 純 Windows 桌面，追求最小體積 | **WPF .NET 8** |
 | 純 Windows 桌面，追求最快啟動 | **WinForms .NET 8** |
 | Windows 11 原生風格 UI | **WinUI 3** |
+| Windows 平板 / 觸控 + 沙箱安全性 | **UWP**（但需注意 Microsoft 已宣布以 WinUI 3 取代） |
 | Windows 桌面 + 少量跨平台需求 | **Avalonia** |
 | 行動裝置（iOS/Android）+ Windows | **MAUI** |
 | 真正的全平台（含 Web/Linux） | **Uno Platform** 或 **Avalonia** |
@@ -157,6 +167,7 @@ demo1/
 ├── WpfDemo/             # WPF .NET 8
 ├── WinUI3Demo/          # WinUI 3 .NET 10
 ├── UnoDemo/             # Uno Platform .NET 8 (x64)
+├── UwpDemo/             # UWP (Universal Windows Platform) uap10.0.19041
 ├── WinFormsDemo/        # WinForms .NET 8
 └── WinFormsNetFxDemo/   # WinForms .NET Framework 4.8
 ```
