@@ -210,7 +210,8 @@ function Get-OutputStats([string]$dir) {
 Write-Header "Building All Demos  [Config: $Config]"
 New-Item $ReleaseDir -ItemType Directory -Force | Out-Null
 
-$results = [System.Collections.Generic.List[hashtable]]::new()
+$results   = [System.Collections.Generic.List[hashtable]]::new()
+$totalStart = [System.Diagnostics.Stopwatch]::StartNew()
 
 foreach ($d in $demos) {
     Write-Step $d.Name
@@ -240,8 +241,9 @@ foreach ($d in $demos) {
     # clean output dir
     if (Test-Path $outDir) { Remove-Item $outDir -Recurse -Force }
 
-    $ok  = $false
-    $err = @()
+    $ok       = $false
+    $err      = @()
+    $sw       = [System.Diagnostics.Stopwatch]::StartNew()
 
     switch ($d.Tool) {
 
@@ -320,36 +322,48 @@ foreach ($d in $demos) {
     }
 
     if ($ok) {
+        $sw.Stop()
         $stats = Get-OutputStats $outDir
-        Write-OK "Done -> $outDir  ($($stats.Files) files, $($stats.MB) MB)"
-        $results.Add(@{Name=$d.Name; Status="OK"; Files=$stats.Files; MB=$stats.MB})
+        Write-OK "Done -> $outDir  ($($stats.Files) files, $($stats.MB) MB)  [$([math]::Round($sw.Elapsed.TotalSeconds,1))s]"
+        $results.Add(@{Name=$d.Name; Status="OK"; Files=$stats.Files; MB=$stats.MB; Sec=$sw.Elapsed.TotalSeconds})
     } else {
-        Write-Fail "Build FAILED"
+        $sw.Stop()
+        Write-Fail "Build FAILED  [$([math]::Round($sw.Elapsed.TotalSeconds,1))s]"
         $err | ForEach-Object { Write-Info $_ }
         if ((Test-Path $outDir) -and -not (Get-ChildItem $outDir -ErrorAction SilentlyContinue)) {
             Remove-Item $outDir -Force
         }
-        $results.Add(@{Name=$d.Name; Status="FAIL"; Reason="build error"})
+        $results.Add(@{Name=$d.Name; Status="FAIL"; Reason="build error"; Sec=$sw.Elapsed.TotalSeconds})
     }
 }
 
 # ── 5. Summary ────────────────────────────────────────────────────────────────
+$totalStart.Stop()
 Write-Header "Build Summary"
 
 foreach ($r in $results) {
-    $n = $r.Name.PadRight(24)
+    $n   = $r.Name.PadRight(24)
+    $sec = if ($r.Sec) { "  $([math]::Round($r.Sec,1))s".PadLeft(8) } else { "" }
     switch ($r.Status) {
-        "OK"   { Write-OK   "$n $($r.Files) files  $($r.MB) MB" }
+        "OK"   { Write-OK   "$n $($r.Files) files  $($r.MB) MB$sec" }
         "SKIP" { Write-Warn "$n Skipped : $($r.Reason)" }
-        "FAIL" { Write-Fail "$n FAILED" }
+        "FAIL" { Write-Fail "$n FAILED$sec" }
     }
 }
 
 $nOK   = ($results | Where-Object { $_.Status -eq "OK"   }).Count
 $nSkip = ($results | Where-Object { $_.Status -eq "SKIP" }).Count
 $nFail = ($results | Where-Object { $_.Status -eq "FAIL" }).Count
+$total = $totalStart.Elapsed
+
+$totalStr = if ($total.TotalMinutes -ge 1) {
+    "$([math]::Floor($total.TotalMinutes))m $($total.Seconds)s"
+} else {
+    "$([math]::Round($total.TotalSeconds,1))s"
+}
 
 Write-Host ""
 Write-Host ("  Result: {0} built   {1} skipped   {2} failed" -f $nOK, $nSkip, $nFail) -ForegroundColor Cyan
+Write-Host "  Total build time: $totalStr" -ForegroundColor Cyan
 Write-Host "  Output: $ReleaseDir" -ForegroundColor Cyan
 Write-Host ""
