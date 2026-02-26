@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
@@ -8,6 +9,7 @@ namespace UwpDemo.Pages
 {
     public sealed partial class AnimationPage : Page
     {
+        private static readonly Random _rng = new Random();
         private readonly List<Storyboard> _storyboards = new List<Storyboard>();
         private Windows.UI.Xaml.DispatcherTimer? _counterTimer;
         private Windows.UI.Xaml.DispatcherTimer? _orbitTimer;
@@ -88,7 +90,7 @@ namespace UwpDemo.Pages
             _counterTimer = new Windows.UI.Xaml.DispatcherTimer { Interval = TimeSpan.FromMilliseconds(80) };
             _counterTimer.Tick += (_, _) =>
             {
-                _counterValue = (_counterValue + Random.Shared.Next(1, 8)) % 100;
+                _counterValue = (_counterValue + _rng.Next(1, 8)) % 100;
                 CounterText.Text  = _counterValue.ToString();
                 CounterBar.Value  = _counterValue;
             };
